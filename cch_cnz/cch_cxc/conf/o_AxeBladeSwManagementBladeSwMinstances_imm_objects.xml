@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 11:06:44 PM using:
+	* com.ericsson.ecim.coremw.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.coremw.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.coremw.imm 3.13.0.202006261811
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <object class="BladeSwManagementBladeSwM">
+        <dn>BladeSwManagementbladeSwMId=1</dn>
+    </object>
+    <object class="BladeSwManagementCpRelatedSwManager">
+        <dn>cpRelatedSwManagerId=1,BladeSwManagementbladeSwMId=1</dn>
+    </object>
+</imm:IMM-contents>

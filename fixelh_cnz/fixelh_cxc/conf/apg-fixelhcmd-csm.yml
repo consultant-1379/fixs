@@ -1,0 +1,27 @@
+csm-version: '1.0'
+components:
+- uid: fixs.fixelhcmd
+  name: fixs-fixelhcmd
+  description: FIXS FIXELHCMD component
+  availability-manager: NONE
+  software:
+    sdp: ERIC-FIXS_FIXELHCMDBIN-CXC1372161
+  supersedes:
+  - software: ERIC-FIXS_FIXELHCMDBIN-CXC1372161
+  constraints:
+    installation:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+    upgrade:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+  meta-data:
+    component-version: 9.0.0-4
+    deliverable:
+      deployment-package: fixs_fixelhcmd-9.0.0-4-deployment-CXC1372161.tar.gz
+      runtime-package: fixs_fixelhcmd-9.0.0-4-runtime-CXC1372161.tar.gz
+    software:
+    - file-name: FIXS_FIXELHCMDBIN-CXC1372161_9-R1A04.x86_64.sdp
+      bundle-name: ERIC-FIXS_FIXELHCMDBIN-CXC1372161_9-R1A04

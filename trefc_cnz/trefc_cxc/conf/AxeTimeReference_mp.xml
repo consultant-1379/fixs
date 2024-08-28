@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 10:55:12 PM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Managed Object Model for Time Reference Management Function</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>19089-CXA 117 0003/6</docNum>
+            <docLang>Uen</docLang>
+            <docRev>B</docRev>
+            <docDate>2020-12-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XHARBAV</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Harika Bavana" contact="XHARBAV" correction="0" date="2020-12-08" docNo="" name="AxeTimeReference" namespace="urn:com:ericsson:ecim:AxeTimeReference" namespacePrefix="axetimereference" organization="" release="3" revision="C" version="1">
+        <description>Time Reference Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <struct name="SwitchNetworkConfigStruct">
+            <description>Specifies network configuration of an switch on public network.
+This allow it to reach external network time servers.</description>
+            <structMember name="ipAddress">
+                <description>Identifies the IP address of switch on public network.</description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>0.0.0.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="netmask">
+                <description>Identifies the netmask of switch on public network. </description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>255.255.255.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="gateway">
+                <description>Identifies the gateway switch uses to reach external network time server.</description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>0.0.0.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <struct name="SCXNetworkConfigurationStruct">
+            <description>Specifies network configuration of an SCX on public network. 
+This allow it to reach external network time servers.</description>
+            <structMember name="ipAddress">
+                <description>Identifies the IP address of SCX on public network.</description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>0.0.0.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="netmask">
+                <description>Identifies the netmask of SCX on public network. </description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>255.255.255.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="gateway">
+                <description>Identifies the gateway SCX uses to reach external network time server.</description>
+                <derivedDataTypeRef name="IpAddressType">
+                    <defaultValue>0.0.0.0</defaultValue>
+                    <mimName>AxeTimeReference</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="TimeServiceType">
+            <description>List of results about changing of time service type.
+</description>
+            <enumMember name="NOT_CONFIGURED">
+                <description>No time service type is configured (Default Value).</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NTP">
+                <description>Axe time reference uses NTP as type of UTC Reference Clock (URC) time service.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="NTPHP">
+                <description>Axe Time Reference uses NTPHP as type of URC time service.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="TimeReferenceStatus">
+            <description>Check the status of the synchronization of the switch boards with the external reference(s).</description>
+            <enumMember name="NOT_CONNECTED">
+                <description>Switch is not connected to any external time reference.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="CONNECTED">
+                <description>Switch is synchornized with an external time reference.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RESYNCH">
+                <description>Switch is resynchronizing with the external time reference. </description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="ChangeAdmStateResultType">
+            <description>List of results about changing of administrative state.</description>
+            <enumMember name="EXECUTED">
+                <description>Indicates a successfully administrative state change. </description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NOT_ALLOWED_BY_CP">
+                <description>Indicates CP has rejected request to change of administrative state.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="REFERENCE_TYPE_NOT_CONFIGURED">
+                <description>Indicates that reference type is not configured during administrative state change.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="SERVICE_TYPE_NOT_CONFIGURED">
+                <description>Indicates that service type is not configured during administrative state change.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="NO_REFERENCE_EXIST">
+                <description>Indicates that no time reference exist during administrative state change.
+</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="INVALID_REFERENCE_TYPE">
+                <description>Indicates that invalid reference type is configured during administrative state change.
+</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="SNMP_FAILURE">
+                <description>Indicates SNMP communication failure during administrative state change.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="INTERNAL_ERROR">
+                <description>Indicates some internal error during administrative state change.</description>
+                <value>7</value>
+            </enumMember>
+        </enum>
+        <enum name="ExternalReferenceType">
+            <description>Lists external time reference types.</description>
+            <enumMember name="NOT_CONFIGURED">
+                <description>No external refrence type is configured (Default Value).</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NETWORK_REFERENCE">
+                <description>AXE time reference uses network time servers as external time references.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="GPS_REFERENCE">
+                <description>Axe time reference uses GPS devices as external time references.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="TimeServerReferenceId">
+            <description>External time server reference identifier.</description>
+            <baseType>
+                <string/>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="IpAddressType">
+            <description>Specifies the range for an IP address.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="3"/>
+                <extension name="originatingMimName" value="AxeCommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>253</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>253</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="TimeReferenceM">
+            <description>Represents the root MOC for the Time Reference Configuration Management function.
+The function allows configuring the switch boards present into APZ magazine for connecting them to external time servers or the external GPS device in order to provide time of day or high precision synchronization.
+
+NTP is used for communicating with the time servers, while NTPHP is used for communicating with the external GPS device.
+SNTP is used instead between the other switch boards present into an AXE node and the external time servers.</description>
+            <root/>
+            <attribute name="timeReferenceMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>Identifies the operative status of the time synchronization service.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Identifies the administrative state of the service.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="changeAdmStateResult">
+                <description>Identifies the last result info about changing of administrative state.
+
+</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="ChangeAdmStateResultType">
+                        <defaultValue>EXECUTED</defaultValue>
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="NetworkTimeServer">
+            <description>Represents the set of external time servers which are used to synchronize the time. 
+Up to eight (8) external references can be defined at any time.
+The deletion of the last NetworkTimeServer instance is rejected when the attribute operationalState is set to ENABLED.
+
+Attributes setting can fail due to one of the following reasons:
+-Incorrect IP address : This message appears when incorrect IP value is provided.
+-Cannot delete last NetworkTimeServer when operationalState is ENABLED.
+-Network Time Server IP address already exists : This message appears when already existing network server IP value is provided.
+-Operation not allowed in this system configuration: This message appears when network server IP is provided in wrong system configuration.</description>
+            <attribute name="networkTimeServerId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ipAddress">
+                <description>Identifies the IP address of network time server.
+It must be an IPv4 address in a dotted decimal form expressed as a.b.c.d.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="IpAddressType">
+                        <defaultValue>0.0.0.0</defaultValue>
+                        <mimName>AxeTimeReference</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ScxTimeReference">
+            <description>Represents the entry point for external IP configuration functionality of SCX.
+There are two instances: one for the SCX board Side A (the SCX board in the slot 0) and one for the SCX board Side B (the SCX board in slot 25) on the shelf (where the AP board is placed) to make them available on the public network.
+
+One or more attributes setting can fail due to one of the following reasons:
+-Incorrect IP address : This message appears when incorrect IP value is provided.
+-Incorrect netmask : This message appears when incorrect netmask value is provided.
+-Incorrect default gateway : This message appears when incorrect gateway value is provided.
+-Operation not allowed in this system configuration : This message appears when this class is configured in a SMX-based APZ magazine.</description>
+            <systemCreated/>
+            <deprecated/>
+            <statusInformation>The MOC SwitchTimeReference should be used instead.</statusInformation>
+            <attribute name="scxTimeReferenceId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="timeServiceStatus">
+                <description>Specifies the time synchronization status.
+It checks the status of time synchronization of the switch boards with the external reference(s).
+</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="TimeReferenceStatus">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeReferenceId">
+                <description>Identifies the external time server the SCX is synchronized to.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="TimeServerReferenceId">
+                        <mimName>AxeTimeReference</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="networkConfiguration">
+                <description>Specify the network configuration of the additional IP address on the SCX.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="SCXNetworkConfigurationStruct">
+                        <mimName>AxeTimeReference</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ScxTimeService">
+            <description>Is the entry point for the time service configuration.
+It is used to configure the type of external time reference and time service type. It contains two instances of ScxTimeReference, one for each SCX board present in the subrack where the AP board is placed. 
+Time reference uses network time servers or GPS device as reference type. The type of time service can be either NTP or NTPHP.
+
+One or more attributes setting can fail due to one of the following reasons:
+-Cannot modify serviceType when operationalState is ENABLED.
+-Cannot modify referenceType when operationalState is ENABLED.
+-Operation not allowed in this system configuration : This message appears when this class is configured in a SMX-based APZ magazine.</description>
+            <systemCreated/>
+            <deprecated/>
+            <statusInformation>The MOC SwitchTimeService should be used instead.</statusInformation>
+            <attribute name="scxTimeServiceId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="referenceType">
+                <description>Specifies the type of external time reference to synchronize with.
+It cannot be changed if the attribute operationalState in MOC TimeReferenceM is set to ENABLED, that is when the time synchronization is running.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="ExternalReferenceType">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="serviceType">
+                <description>Specifies the type of time service.
+It cannot be changed if the attribute operationalState in MOC TimeReferenceM is set to ENABLED, that is when the time synchronization is running.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="TimeServiceType">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SwitchTimeReference">
+            <description>Represents the entry point for external IP configuration of switches.
+There are two instances: one for the switch board Side A (the switch board in the slot 0) and one for the switch board Side B (the switch board in slot 25) on th shelf (where AP board is placed) to make them available on the public network.
+It is used to configure the external IP address of switch on the same network as the external time reference.
+
+One or more attributes setting can fail due to one of the following reasons:
+-Incorrect IP address : This message appears when incorrect IP value is provided.
+-Incorrect netmask : This message appears when incorrect netmask value is provided.
+-Incorrect default gateway : This message appears when incorrect gateway value is provided.
+</description>
+            <systemCreated/>
+            <attribute name="switchTimeReferenceId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="timeServiceStatus">
+                <description>Specifies the time synchronization status.
+It checks the status of the synchronization of the switch boards with the external reference(s).</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="TimeReferenceStatus">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeReferenceId">
+                <description>Identifies the external time server the switch is synchronized to.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="TimeServerReferenceId">
+                        <mimName>AxeTimeReference</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="networkConfiguration">
+                <description>Specify the network configuration of the additional IP address on the switch.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="SwitchNetworkConfigStruct">
+                        <mimName>AxeTimeReference</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SwitchTimeService">
+            <description>Is the entry point for the time service configuration.
+It is used to configure the type of external time reference and time service type. It contains two instances of SwitchTimeReference, one for each switch board present in the shelf where the AP board is placed.
+Time reference uses network time servers or GPS device as reference type. The type of time service can be either NTP or NTPHP.
+
+One or more attributes setting can fail due to one of the following reasons:
+-Cannot modify serviceType when operationalState is ENABLED.
+-Cannot modify referenceType when operationalState is ENABLED.</description>
+            <systemCreated/>
+            <attribute name="switchTimeServiceId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="referenceType">
+                <description>Specifies the type of external time reference to synchronize with.
+It cannot be changed if the attribute operationalState in MOC TimeReferenceM is set to ENABLED, that is when the time synchronization is running.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="ExternalReferenceType">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="serviceType">
+                <description>Identifies the type of service.
+It is not allowed to modify serviceType when operationalState is ENABLED.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="TimeServiceType">
+                        <mimName>AxeTimeReference</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="TimeReferenceM_to_NetworkTimeServer">
+            <containment>
+                <parent>
+                    <hasClass name="TimeReferenceM">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <description>&lt;p&gt;&lt;span style="font-size:8pt;"&gt;&lt;/span&gt;&lt;/p&gt;</description>
+                    <hasClass name="NetworkTimeServer">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>8</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TimeReferenceM_to_ScxTimeService">
+            <containment>
+                <parent>
+                    <hasClass name="TimeReferenceM">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScxTimeService">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ScxTimeService_to_ScxTimeReference">
+            <containment>
+                <parent>
+                    <hasClass name="ScxTimeService">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScxTimeReference">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>2</min>
+                        <max>2</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="TimeReferenceM_to_SwitchTimeService">
+            <containment>
+                <parent>
+                    <hasClass name="TimeReferenceM">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SwitchTimeService">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="SwitchTimeService_to_SwitchTimeReference">
+            <containment>
+                <parent>
+                    <hasClass name="SwitchTimeService">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SwitchTimeReference">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>2</min>
+                        <max>2</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <description>.</description>
+        <relationship name="SystemHandling_to_TimeReferenceM">
+            <description>.</description>
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TimeReferenceM">
+                        <mimName>AxeTimeReference</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

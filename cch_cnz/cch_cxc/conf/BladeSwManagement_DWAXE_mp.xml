@@ -1,0 +1,1534 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 11:06:49 PM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Managed Object Model for Blade SW Management Function</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>CXA 117 0026/6</docNum>
+            <docLang>Uen</docLang>
+            <docRev>C</docRev>
+            <docDate>2020-12-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XHARBAV</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Harika Bavana" contact="XHARBAV" correction="0" date="2020-12-08" docNo="CXA 117 0026/6" name="BladeSwManagement" namespace="urn:com:ericsson:ecim:BladeSwManagement" namespacePrefix="bladeswmanagement" organization="" release="4" revision="C" version="2">
+        <description>Blade SW Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <struct name="BladeSwMAsyncActionResult">
+            <description>Represents the progress of import upgrade package action.</description>
+            <structMember name="result">
+                <description>Specifies the result state of completed import upgrade package action.
+This field has a value NOT_AVAILABLE if the action has been never used.</description>
+                <enumRef name="ActionResultState">
+                    <defaultValue>NOT_AVAILABLE</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="resultInfo">
+                <description>Specifes the description of the outcome/result of import upgrade package action.
+E.g., it can contain an error message if the action failed.</description>
+                <enumRef name="ImportResultInfo">
+                    <defaultValue>EXECUTED</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="state">
+                <description>Specifes the current state of import upgrade package action.</description>
+                <enumRef name="ActionStateType">
+                    <defaultValue>NOT_AVAILABLE</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="timeActionCompleted">
+                <description>Specifies the date and time when the import upgrade package action was completed (successfully or unsuccessfully). </description>
+                <derivedDataTypeRef name="DateTimeWithoutOffset">
+                    <mimName>ECIM_CommonLibrary</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <struct name="ManagedSwPackageActionResult">
+            <description>Represents the progress of software upgrade actions.</description>
+            <structMember name="state">
+                <description>Specifies the current state of action.</description>
+                <enumRef name="ActionStateType">
+                    <defaultValue>NOT_AVAILABLE</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="result">
+                <description>Specifies the result state of completed action.
+This field has a value NOT_AVAILABLE if the action has been never used.</description>
+                <enumRef name="ActionResultState">
+                    <defaultValue>NOT_AVAILABLE</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="timeActionCompleted">
+                <description>Specifies the date and time when the action was completed (successfully or unsuccessfully). </description>
+                <derivedDataTypeRef name="DateTimeWithoutOffset">
+                    <mimName>ECIM_CommonLibrary</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="resultInfo">
+                <description>Specifies the description of the outcome/result of action.
+E.g., it can contain an error message if the action failed.</description>
+                <enumRef name="ActionResultInfo">
+                    <defaultValue>EXECUTED</defaultValue>
+                    <mimName>BladeSwManagement</mimName>
+                </enumRef>
+            </structMember>
+        </struct>
+        <enum name="SwUpgradeState">
+            <description>-</description>
+            <enumMember name="IDLE">
+                <description>Idle state.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="PREPARING">
+                <description>Prepare ongoing state.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="PREPARED">
+                <description>Prepare completed state.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="ACTIVATING">
+                <description>Activate ongoing state.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="CANCELLING">
+                <description>Cancel ongoing state.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="CANCELLED">
+                <description>Cancel completed state.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="ROLLBACK_IN_PROGRESS">
+                <description>Rollback ongoing state.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="ROLLBACK_COMPLETED">
+                <description>Rollback completed state.</description>
+                <value>8</value>
+            </enumMember>
+            <enumMember name="UNKNOWN">
+                <description>Default state. 
+This represents an upgrade state not known. It can occur when both upgrade and rollback fail and it's not possible to determine actual upgrade package on that board.
+In this state it's possible to try a new upgrade attempt invoking prepare action.</description>
+                <value>9</value>
+            </enumMember>
+            <enumMember name="FAILED">
+                <description>Failed State.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="ACTIVATED">
+                <description>Activate completed state.
+</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionStateType">
+            <description>Lists the possible states of an action.
+</description>
+            <enumMember name="RUNNING">
+                <description>Action ongoing.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FINISHED">
+                <description>Action completed (successfully or unsuccessfully).</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="NOT_AVAILABLE">
+                <description>No information available.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionResultState">
+            <description>Lists the different results of an action.</description>
+            <enumMember name="SUCCESS">
+                <description>Upgrade package successfully imported.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FAILURE">
+                <description>Failed to import the upgrade package.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="NOT_AVAILABLE">
+                <description>No information available.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="SwUpgradeResult">
+            <description>Lists upgrade procedure results.</description>
+            <enumMember name="OK">
+                <description>Upgrade procedure is successful.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NOT_OK">
+                <description>Upgrade procedure is unsuccessful either because manually cancelled or failed.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="SwUpgradeResultInfo">
+            <description>Lists upgrade procedure result descriptions.</description>
+            <enumMember name="EXECUTED">
+                <description>Upgrade executed.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="PREPARE_FAILURE">
+                <description>Upgrade failed on prepare action.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ACTIVATE_FAILURE">
+                <description>Upgrade failed on activate action.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="ROLLBACK_FAILURE">
+                <description>Upgrade failed and automatic rollback failed.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="CANCEL_FAILURE">
+                <description>Upgrade cancelled and rollback failed.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="MANUALLY_CANCELLED">
+                <description>Upgrade not executed since manually cancelled.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="COMMIT_FAILURE">
+                <description>Upgrade failed on commit action.</description>
+                <value>6</value>
+            </enumMember>
+        </enum>
+        <enum name="ImportResultInfo">
+            <description>Lists the different result descriptions of import upgrade package action.</description>
+            <enumMember name="EXECUTED">
+                <description>Import upgrade package action successfully executed.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="INTERNAL_ERROR">
+                <description>A general error occurred.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="INVALID_PACKAGE">
+                <description>Upgrade package not found or Metadata within upgrade package is invalid.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="PACKAGE_ALREADY_INSTALLED">
+                <description>The Upgrade Package is already imported.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="MAXIMUM_LOAD_MODULES_INSTALLED">
+                <description>Maximum Number of Upgrade Packages already installed for that Functional Board Name.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="DISK_QUOTA_EXCEEDED">
+                <description>The specified quota for the directory has been exceeded.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="BACKUP_ONGOING">
+                <description>Backup operation is in progress.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="INVALID_CONFIGURATION">
+                <description>System configuration not supported.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="FBN_NOT_ALLOWED">
+                <description>Functional Board Name not allowed in this system configuration.</description>
+                <value>8</value>
+            </enumMember>
+        </enum>
+        <enum name="FunctionalBoardNameApManaged">
+            <description>Lists the functional board names of the blades the AP managed software package applies to.
+</description>
+            <enumMember name="SCXB">
+                <description>It is SCX board.</description>
+                <value>340</value>
+            </enumMember>
+            <enumMember name="IPTB">
+                <description>It is IPT board.</description>
+                <value>350</value>
+            </enumMember>
+            <enumMember name="CMXB">
+                <description>It is CMX board.</description>
+                <value>380</value>
+            </enumMember>
+            <enumMember name="IPLB">
+                <description>It is IPLB.</description>
+                <value>390</value>
+            </enumMember>
+            <enumMember name="SMXB">
+                <description>It is SMX board.</description>
+                <value>400</value>
+            </enumMember>
+        </enum>
+        <enum name="FunctionalBoardNameCpManaged">
+            <description>Lists the functional board names of the blades the CP managed software package applies to.</description>
+            <enumMember name="EPB1">
+                <description>Evo Processing Board 1 (EPB1).
+</description>
+                <value>360</value>
+            </enumMember>
+            <enumMember name="EVOET">
+                <description>Evo Exchange Terminal (EvoET) Board.
+</description>
+                <value>370</value>
+            </enumMember>
+        </enum>
+        <enum name="FwUpgradeState">
+            <description>Lists possible firmware upgrade states.</description>
+            <domainExtension domain="ECIM">
+                <extension name="filter" value="APGHIDDEN"/>
+            </domainExtension>
+            <enumMember name="UNKNOWN">
+                <description>Unknow firmware upgrade state.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="IDLE">
+                <description>Firmware upgrade in Idle state.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ONGOING">
+                <description>Firmware upgrade in progress.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionResultInfo">
+            <description>Lists the different result descriptions of an action.</description>
+            <enumMember name="EXECUTED">
+                <description>Action executed successfully.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="HARDWARE_NOT_PRESENT">
+                <description>Specified Hardware is not present.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="SNMP_FAILURE">
+                <description>Failure in SNMP communication.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="LM_ALREADY_PRESENT">
+                <description>Load Module already imported.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="UPGRADE_ALREADY_ONGOING">
+                <description>An upgrade operation is already in progress.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="WRONG_ACTION_IN_THIS_STATE">
+                <description>Specified action cannot be executed in current state.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="ONE_INSTALLED_PACKAGE_IS_FAULTY">
+                <description>There is at least one faulty package.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="BACKUP_ONGOING">
+                <description>Backup operation is in progress.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="NO_REPLY_FROM_CS">
+                <description>Failure in communication with Configuration Service.</description>
+                <value>8</value>
+            </enumMember>
+            <enumMember name="NOT_ALLOWED_BY_CP">
+                <description>Upgrade Rejected by CP.</description>
+                <value>9</value>
+            </enumMember>
+            <enumMember name="PACKAGE_NOT_APPLICABLE">
+                <description>The operation is not appliable to the selected package.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="COMMUNICATION_FAILURE">
+                <description>Failure in communication.</description>
+                <value>11</value>
+            </enumMember>
+            <enumMember name="BLADE_BLOCKED">
+                <description>The action cannot be executed because the selected blade is blocked</description>
+                <value>13</value>
+            </enumMember>
+            <enumMember name="OTHER_BLADE_IN_CLUSTER_NOT_ACTIVE">
+                <description>The action is rejected because the other blade in cluster is not in a proper working state</description>
+                <value>12</value>
+            </enumMember>
+        </enum>
+        <enum name="FwUpgradeResult">
+            <description>Lists possible firmware upgrade results.</description>
+            <enumMember name="OK">
+                <description>Firmware upgrade successfully completed.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NOT_OK">
+                <description>Firmware upgrade failed.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="PackageStatus">
+            <description>Lists possible package status.</description>
+            <enumMember name="VALID">
+                <description>Valid package.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FAULTY">
+                <description>Faulty package, corresponding load module is missing on the File System.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="FunctionalBoardNameImported">
+            <description>Lists the functional board names of the blades for which Upgrade Packages can be imported.</description>
+            <enumMember name="SCXB">
+                <description>It is SCX board.</description>
+                <value>340</value>
+            </enumMember>
+            <enumMember name="IPTB">
+                <description>It is IPT board.</description>
+                <value>350</value>
+            </enumMember>
+            <enumMember name="CMXB">
+                <description>It is CMX board.</description>
+                <value>380</value>
+            </enumMember>
+            <enumMember name="EPB1">
+                <description>It is EPB1.</description>
+                <value>360</value>
+            </enumMember>
+            <enumMember name="EVOET">
+                <description>It is EvoET board.</description>
+                <value>370</value>
+            </enumMember>
+            <enumMember name="IPNA">
+                <description>It is IPNA board.</description>
+                <value>150</value>
+            </enumMember>
+            <enumMember name="CPUB">
+                <description>It is CPU board.</description>
+                <value>200</value>
+            </enumMember>
+            <enumMember name="IPLB">
+                <description>It is IPLB.</description>
+                <value>390</value>
+            </enumMember>
+            <enumMember name="SMXB">
+                <description>It is SMX board.</description>
+                <value>400</value>
+            </enumMember>
+        </enum>
+        <enum name="SwUpgradeType">
+            <description>Lists possible upgrade types.</description>
+            <enumMember name="NORMAL_UPGRADE">
+                <description>Upgrade preserving configuration data and according supported upgrade path.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="INITIAL_INSTALLATION">
+                <description>Upgrade that overrides everything on the blade (current SW and configuration data).</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="PackageIdentity">
+            <description>Cxp number.</description>
+            <baseType>
+                <string/>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="SlotNumber">
+            <description>A slot number must be a value either in the range 0-25 or 26 or 28.</description>
+            <baseType>
+                <string>
+                    <validValues>^([0-9]|[1][0-9]|2[0-6]|28)|ALL$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">^([0-9]|[1][0-9]|2[0-6]|28)|ALL$</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="ShelfAddress">
+            <description>It is used to defined the shelf address for the magazine where the board is placed. 
+The address is made up from the address plugs in the magazine.
+Expressed as a.b.c.d where 
+a
+Address plug 0
+Integer 0-15, 255. When address plug is not present this value is 255 for GESB board and 0 for all other boards.
+b
+Address plug 1
+Integer 0-15, 255. When address plug is not present this value is 255 for GESB board and 0 for all other boards.
+c
+Address plug 2. Shall always be zero.
+Integer 0
+d
+Address plug 3
+Integer 0-15, 255. When address plug is not present this value is 255 for GESB board and 0 for all other boards.
+</description>
+            <baseType>
+                <string>
+                    <validValues>\b^(255|[0-9]|[1][0-5]){1}\.(255|[0-9]|[1][0-5]){1}\.(0)\.(255|[0-9]|[1][0-5]){1}|ALL$\b</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">\b^(255|[0-9]|[1][0-5]){1}\.(255|[0-9]|[1][0-5]){1}\.(0)\.(255|[0-9]|[1][0-5]){1}|ALL$\b</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="ShelfAndSlot">
+            <description>A shelf address and a slot number separated by "_" character, e.g.: 1.2.0.4_25</description>
+            <baseType>
+                <string>
+                    <validValues>\b^(255|[0-9]|[1][0-5]){1}\.(255|[0-9]|[1][0-5]){1}\.(0)\.(255|[0-9]|[1][0-5]){1}\_([0-9]|[1][0-9]|2[0-6]|28)$\b</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">\b^(255|[0-9]|[1][0-5]){1}\.(255|[0-9]|[1][0-5]){1}\.(0)\.(255|[0-9]|[1][0-5]){1}\_([0-9]|[1][0-9]|2[0-6]|28)$\b</rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="BladeSwM">
+            <description>Represents the root MOC for Blade SW Management function MOM.
+It handles the SW packages used to upgrade AXE managed blades.</description>
+            <root/>
+            <action name="importUpgradePackage">
+                <description>Allows to create a new ApManagedSwPackage or CpManagedSwPackage MO, depending on Functional Board Name (FBN) provided as input.
+
+The action can be invoked when there is no other action in progress on this MO and returns immediately (i.e. it is an  asynchronous action).
+
+The action can fail due to one of the following reasons:
+	- Configuration not supported: The specified FBN is not applicable to current system configuration.
+	- Import Package action already running : Another import operation is already in progress.
+	- Invalid file path or file name: The specified file name does not exists on the corresponding NBI folder.
+	- Invalid file format: The specified file name extension is not valid (only .zip, .tar and .tar.gz extensions are accepted).
+
+The progress of the action can be tracked via the attribute asyncActionProgress.
+
+The upgrade package is expected to be stored in the exposed file system under the folder related to the FBN the package applies to. See the 'sw_packages' related attributes in the  NorthBoundFolders MO for more information.
+
+The upgrade package is removed only in case of succes. It's up to the remote MS to remove it in case of failure.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="fbn">
+                    <description>Functional Board Name (FBN) 
+This parameter identifies the functional board name this upgrade package is applicable to.</description>
+                    <in/>
+                    <dataType>
+                        <enumRef name="FunctionalBoardNameImported">
+                            <mimName>BladeSwManagement</mimName>
+                        </enumRef>
+                    </dataType>
+                </parameter>
+                <parameter name="fileName">
+                    <description>Upgrade package file name to import.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="bladeSwMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="asyncActionProgress">
+                <description>Specifies the query progress of import upgrade package action</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <structRef name="BladeSwMAsyncActionResult">
+                        <mimName>BladeSwManagement</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ApManagedSwPackage">
+            <description>Represents the attributes and actions to describe and control the process of changing the software configuration of a board which upgrade is handled by APG.
+
+The sequence in which a Software upgrade executes is:
+
+1. Prepare
+2. Activate 
+3. Commit</description>
+            <action name="prepareUpgrade">
+                <description>Allows to prepare the board for the activation of current upgrade package.
+
+The action is monitored by a supervision timer.
+Executing prepare() does not have any negative impact on the in service performance of that board.
+
+The action returns immediately after invocation. The progress of the action can be tracked via the specific progress report object. The action returns FALSE if the action could not start for any reason (e.g., another parallel action is in progress), otherwise returns TRUE.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="upgradeType">
+                    <description>Indicates the type of load module upgrade. It can be either a NORMAL upgrade or an INITIAL_INSTALLATION upgrade for intial installation of the board.</description>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <enumRef name="SwUpgradeType">
+                            <defaultValue>NORMAL_UPGRADE</defaultValue>
+                            <mimName>BladeSwManagement</mimName>
+                        </enumRef>
+                    </dataType>
+                </parameter>
+                <parameter name="force">
+                    <description>Indicates if the upgrade should be forced regardless the status of the other blade(s) in the same cluster. If the upgrade is forced, all checks regarding the status of the cluster, the blade belongs to, will be skipped and the upgrade will be started even if the other blade(s) in the cluster (if any) are not in a proper state (that means that functionalities provided from this type of blade may be temporary interrupted).</description>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <boolean>
+                            <defaultValue>false</defaultValue>
+                        </boolean>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="activate">
+                <description>Allows to take current upgrade package into operation on the specified board.
+
+This action can be invoked when the state is PREPARED. If the action is invoked in a state where it has no meaning or it could not start for any other reason, it returns FALSE, otherwise returns TRUE. 
+The progress of the action can be tracked via the specific progress report object. 
+
+The action is monitored by a supervision timer.
+If activation fails for any reason then an automatic rollback occurs.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package ((e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="cancel">
+                <description>Allows to cancel an ongoing upgrade. The consequence is that the specific board stops the operation and revert back to the previous software version.
+
+It's allowed when the upgrade is in PREPARED or ACTIVATED state and returns immediately after invocation.
+If the action is invoked in a state where it has no meaning or it could not start for any other reason, it returns FALSE, otherwise returns TRUE. 
+The progress of the action can be tracked via the specific progress report object. </description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="3"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="commitUpgrade">
+                <description>Allows to complete the upgrade procedure on the board. This operation must be invoked regardless of upgrade result.
+It's allowed when the upgrade status is ACTIVATED, CANCELLED and ROLLBACK_COMPLETED.  
+The action returns true or false when it has completed (synchronous).</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="4"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="setAsDefault">
+                <description>Allows to configure this upgrade package as default package for this board type (specified by its functional board name).
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="5"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="prepare">
+                <description>Allows to prepare the board for the activation of current upgrade package.
+This action is deprecated, prepareUpgrade should be used instead.
+
+The action is monitored by a supervision timer.
+Executing prepare() does not have any negative impact on the in service performance of that board.
+
+The action returns immediately after invocation. The progress of the action can be tracked via the specific progress report object. The action returns FALSE if the action could not start for any reason (e.g., another parallel action is in progress), otherwise returns TRUE.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <deprecated/>
+                <statusInformation>DEPRECATED</statusInformation>
+            </action>
+            <attribute name="apManagedSwPackageId">
+                <description>Holds the name used when identifying the MO. 
+It is composed by product number and revision of the upgrade package, for example CXP012345_R1A01.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="PackageIdentity">
+                        <mimName>BladeSwManagement</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="isDefaultPackage">
+                <description>Specifies whether this upgrade package is the default package for the specific board type. 
+The default package is the one used as default when a new board of that type is defined in the system.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="functionalBoardName">
+                <description>Specifies the functional board name which this package applies to.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="FunctionalBoardNameApManaged">
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="productIdentity">
+                <description>Specifies the product number and revision of software within the upgrade package.
+e.g. CXC012345_R1A01</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="loadModuleFileName">
+                <description>Specifies the path of load module File Name.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string>
+                        <defaultValue>-</defaultValue>
+                    </string>
+                </dataType>
+                <filter>APGHIDDEN</filter>
+            </attribute>
+            <attribute name="usedBy">
+                <description>Specifies the list of boards where this software package is running on.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="asyncActionProgress">
+                <description>Specifies the current progress of actions.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <structRef name="ManagedSwPackageActionResult">
+                        <mimName>BladeSwManagement</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="packageStatus">
+                <description>Specifies the status of the Software Package. It is FAULTY in case Load Module is missing on the File System, otherwise it is VALID.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="PackageStatus">
+                        <defaultValue>VALID</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="swVerType">
+                <description>Version type.</description>
+                <dataType>
+                    <int32>
+                        <defaultValue>2</defaultValue>
+                    </int32>
+                </dataType>
+                <filter>hidden</filter>
+            </attribute>
+        </class>
+        <class name="ReportProgress">
+            <description>Represents the progress of ongoing upgrade procedure.
+An instance is created for each board when the upgrade starts and is kept also after upgrade completion. 
+This instance is deleted whenever a new upgrade procedure is started on the board it refers to.</description>
+            <systemCreated/>
+            <attribute name="reportProgressId">
+                <description>Holds the name used when identifying the MO. 
+It is composed by shelf number and slot position of the board, for example 1.2.0.4_0.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="ShelfAndSlot">
+                        <mimName>BladeSwManagement</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="resultInfo">
+                <description>Specifies the outcome/result of upgrade package procedure.
+E.g., it can contain an error message if the action failed.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="SwUpgradeResultInfo">
+                        <defaultValue>EXECUTED</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="result">
+                <description>Specifies the result state of upgrade package procedure.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="SwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the current state of upgrade package procedure.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="SwUpgradeState">
+                        <defaultValue>UNKNOWN</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeUpgradeCompleted">
+                <description>Specifies the date and time when the upgrade package procedure was completed (successfully or unsuccessfully).</description>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTimeWithoutOffset">
+                        <mimName>ECIM_CommonLibrary</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="lastErrorCode">
+                <description>last error code</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <int32/>
+                </dataType>
+                <filter>APGHIDDEN</filter>
+            </attribute>
+            <attribute name="upgradeType">
+                <description>Specifies the type of load module upgrade. It can be either a NORMAL upgrade or an INITIAL upgrade for intial installation of the board.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="SwUpgradeType">
+                        <defaultValue>NORMAL_UPGRADE</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="forcedUpgrade">
+                <description>Specifies if the upgrade has been forced regardless the status of the other board in the same cluster.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="CpManagedSwPackage">
+            <description>Represents the attributes and actions to support the process of changing the software configuration of a board which upgrade is handled by CP.
+APG contributes to this process.</description>
+            <action name="prepare">
+                <description>Allows to prepare a board  in the specified shelf and slot for the activation of current upgrade package.
+This action is deprecated, prepareUpgrade should be used instead.
+
+It returns true or false when it has completed (synchronous).</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <deprecated/>
+                <statusInformation>DEPRECATED</statusInformation>
+            </action>
+            <action name="prepareShelf">
+                <description>Allows to prepare all boards of this board type (specified by its functional board name) in the specified shelf for the activation of current upgrade package.
+This action is deprecated, prepareUpgrade should be used instead.
+
+It returns true or false when it has completed (synchronous).</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4")</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <deprecated/>
+                <statusInformation>DEPRECATED</statusInformation>
+            </action>
+            <action name="prepareAll">
+                <description>Allows to prepare all boards of this board type (specified by its functional board name) for the activation of current upgrade package.
+This action is deprecated, prepareUpgrade should be used instead.
+
+It returns true or false when it has completed (synchronous).</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="3"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <deprecated/>
+                <statusInformation>DEPRECATED</statusInformation>
+            </action>
+            <action name="setAsDefault">
+                <description>Allows to configure this upgrade package as default package for this board type (specified by its functional board name).
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="4"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="prepareUpgrade">
+                <description>Allows to prepare a board  in the specified shelf and slot for the activation of current upgrade package.
+It returns true or false when it has completed (synchronous).
+
+The action can fail due to one of the following reasons:
+	- Invalid parameter: Specified parameter combination is not valid.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="5"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="shelf">
+                    <description>The shelf address of a board to upgrade with this package (e.g. "1.2.0.4"). If not specified (or if value "ALL" is provided) the action applies to all boards of this board type (specified by its functional board name).</description>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="ShelfAddress">
+                            <defaultValue>ALL</defaultValue>
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="slot">
+                    <description>The slot number of a board to upgrade with this package (e.g. "0"). It can be provided only in combination with parameter shelf. If not specified (or if value "ALL" is provided) the action applies to all boards of this board type (specified by its functional board name) in the specified shelf.</description>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="SlotNumber">
+                            <defaultValue>ALL</defaultValue>
+                            <mimName>BladeSwManagement</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="cpManagedSwPackageId">
+                <description>Holds the name used when identifying the MO. 
+It is composed by product number and revision of the upgrade package, for example CXP012345_R1A01.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="PackageIdentity">
+                        <mimName>BladeSwManagement</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="isDefaultPackage">
+                <description>Specifies whether this upgrade package is the default package for the specific board type. 
+The default package is the one used as default when a new board of that type is defined in the system.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="functionalBoardName">
+                <description>Specifies the functional board name which this package applies to.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="FunctionalBoardNameCpManaged">
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="productIdentity">
+                <description>Specifies the product number and revision of software within the upgrade package.
+e.g. CXC012345_R1A01</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="loadModuleFileName">
+                <description>Specifies the path of load module File Name.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string>
+                        <defaultValue>-</defaultValue>
+                    </string>
+                </dataType>
+                <filter>APGHIDDEN</filter>
+            </attribute>
+            <attribute name="usedBy">
+                <description>Specifies the list of boards where this software package is running on.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="asyncActionProgress">
+                <description>Specifies the current progress of actions.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <structRef name="ManagedSwPackageActionResult">
+                        <mimName>BladeSwManagement</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="packageStatus">
+                <description>Specifies the status of the Software Package. It is FAULTY in case Load Module is missing on the File System, otherwise it is VALID.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="PackageStatus">
+                        <defaultValue>VALID</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="swVerType">
+                <description>Version type.</description>
+                <dataType>
+                    <int32>
+                        <defaultValue>0</defaultValue>
+                    </int32>
+                </dataType>
+                <filter>hidden</filter>
+            </attribute>
+        </class>
+        <class name="BladeSwPersistanceValue">
+            <description>Represents the Blade information used for persistence.</description>
+            <systemCreated/>
+            <filter>APGHIDDEN</filter>
+            <action name="reset">
+                <description>reset board</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="block">
+                <description>block</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="deblock">
+                <description>deblock</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="3"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <attribute name="bladeSwPersistanceValueId">
+                <description>Value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="magazine">
+                <description>magazine</description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>-</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="slot">
+                <description>slot</description>
+                <noNotification/>
+                <dataType>
+                    <int32>
+                        <defaultValue>0</defaultValue>
+                    </int32>
+                </dataType>
+            </attribute>
+            <attribute name="ipmiState">
+                <description>ipmi state</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeState">
+                        <defaultValue>UNKNOWN</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="fanUpperState">
+                <description>pfm Upper State</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeState">
+                        <defaultValue>UNKNOWN</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="fanLowerState">
+                <description>pfm Lower state</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeState">
+                        <defaultValue>UNKNOWN</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="powerUpperState">
+                <description>power upper state</description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeState">
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="powerLowerState">
+                <description>power lower state</description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeState">
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="ipmiUpgradeResult">
+                <description>ipmi firmeare upgrade result</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="ipmiUpgradeTime">
+                <description>ipmi firmware upgrade time</description>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTimeWithoutOffset">
+                        <mimName>ECIM_CommonLibrary</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="fanUpperUpgradeResult">
+                <description>fan Upper Upgrade Result</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="powerUpperUpgradeResult">
+                <description>power Upper Upgrade Result</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="fanLowerUpgradeResult">
+                <description>fan Lower Upgrade Result</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="powerLowerUpgradeResult">
+                <description>power Lower Upgrade Result</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="FwUpgradeResult">
+                        <defaultValue>OK</defaultValue>
+                        <mimName>BladeSwManagement</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="currentCxp">
+                <description>currentCxp</description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>-</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="expectCxp">
+                <description>expectedCxp</description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>-</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="CpRelatedSwManager">
+            <description>hidden class</description>
+            <filter>APGHIDDEN</filter>
+            <attribute name="cpRelatedSwManagerId">
+                <description>Value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="ApManagedSwPackage_to_ReportProgress">
+            <containment>
+                <parent>
+                    <hasClass name="ApManagedSwPackage">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ReportProgress">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BladeSwM_to_ApManagedSwPackage">
+            <containment>
+                <parent>
+                    <hasClass name="BladeSwM">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ApManagedSwPackage">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CpManagedSW_to_BladeSw">
+            <containment>
+                <parent>
+                    <hasClass name="BladeSwM">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CpManagedSwPackage">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="BladeSwPersistent">
+            <filter>APGHIDDEN</filter>
+            <containment>
+                <parent>
+                    <hasClass name="BladeSwM">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BladeSwPersistanceValue">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="CpRelatedSwM_to_BladeSW">
+            <filter>APGHIDDEN</filter>
+            <containment>
+                <parent>
+                    <hasClass name="BladeSwM">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CpRelatedSwManager">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <mim name="EcimCommon" release="0" version="1">
+        <class name="ManagedObject">
+            <description>The ManagedObject MO represents a generic MO type. It does not represent any real resource in the system and can therefore not be instanciated. It is used as a MO-reference that can refer to multiple MO types.</description>
+            <interfaceOnly/>
+        </class>
+    </mim>
+    <interMim>
+        <relationship name="SystemComponentHandling_to_BladeSwM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemComponentHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BladeSwM">
+                        <mimName>BladeSwManagement</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+    <mib correction="0" name="BladeSwManagementBladeSwMinstances" release="0" version="1">
+        <object parentDn="">
+            <hasClass name="BladeSwM">
+                <mimName>BladeSwManagement</mimName>
+            </hasClass>
+            <slot name="bladeSwMId">
+                <value>1</value>
+            </slot>
+        </object>
+        <object parentDn="BladeSwM=1">
+            <hasClass name="CpRelatedSwManager">
+                <mimName>BladeSwManagement</mimName>
+            </hasClass>
+            <slot name="cpRelatedSwManagerId">
+                <value>1</value>
+            </slot>
+        </object>
+    </mib>
+</models>

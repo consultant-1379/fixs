@@ -1,0 +1,49 @@
+csm-version: '1.0'
+components:
+- uid: fixs.cch
+  name: fixs-cch
+  description: FIXS CCH component
+  availability-manager: AMF
+  software:
+    sdp: ERIC-FIXS_CCHBIN-CXC1371497
+  supersedes:
+  - base-component: ERIC-APG_CCH
+  availability-properties:
+    control-policy:
+      type: ADVANCED
+    multiplicity-policy:
+      node-active: ONE
+      node-standby: ONE
+      node-active-standby: 'NO'
+      cluster-active: ONE
+      cluster-standby: ONE
+    lifecycle-control:
+      prefix: /opt/ap/fixs/bin
+      start: fixs_cch_clc instantiate
+      stop: fixs_cch_clc cleanup
+      monitor-keys:
+      - key: fixs_cchd_hck
+        period: 240s
+        timeout: 180s
+      promote-demote-timeout: 200s
+      migrate-timeout: 60s
+      recovery-policy: COMPONENT_RESTART
+      start-stop-timeout: 100s
+  constraints:
+    plugin: plugin/fixs.cch
+    installation:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+    upgrade:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+  meta-data:
+    component-version: 9.0.11-0
+    deliverable:
+      deployment-package: fixs_cch-9.0.11-0-deployment-CXC1371497.tar.gz
+      runtime-package: fixs_cch-9.0.11-0-runtime-CXC1371497.tar.gz
+    software:
+    - file-name: FIXS_CCHBIN-CXC1371497_9-R1L.x86_64.sdp
+      bundle-name: ERIC-FIXS_CCHBIN-CXC1371497_9-R1L

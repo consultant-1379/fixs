@@ -1,0 +1,44 @@
+parameters:
+  CONTROL_PORT: "CONTROL1"
+  TRANSPORT_PORT: "TRANSPORT1"
+  SUBRACK_PORT: "10G1"
+  AGGREGATOR_PORT: "LA1"
+  EXTERNAL_1G_PORT: "GE2"  
+  
+  ALL_BP_PORTS:
+    - BP_1
+    - BP_2
+    - BP_3
+    - BP_4
+    - BP_5
+    - BP_6
+    - BP_7
+    - BP_8
+    - BP_9
+    - BP_10
+    - BP_11
+    - BP_12
+    - BP_13
+    - BP_14
+    - BP_15
+    - BP_16
+    - BP_17
+    - BP_18
+    - BP_19
+    - BP_20
+    - BP_21
+    - BP_22
+    - BP_23
+    - BP_24
+
+  LOCAL_PORT: S_LOCAL
+  REMOTE_PORT: S_REMOTE
+  
+  A1_PORT: A1
+  A2_PORT: A2
+  A3_PORT: A3
+  A4_PORT: A4
+  A5_PORT: A5
+  A6_PORT: A6
+  A7_PORT: A7
+  A8_PORT: A8

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 
+  Copyright (c) 2012 Ericsson AB.
+  All rights reserved
+
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <class name="ComponentMainSwitchHandlerVlanParameter">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>ComponentMainSwitchHandlerVlanParameterId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>VlanName</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>EVOET-INGRESS</default-value>
+        </attr>
+        <attr>
+            <name>VlanId</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>180</default-value>
+        </attr>
+        <attr>
+            <name>VlanPriority</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>4</default-value>
+        </attr>
+        <attr>
+            <name>VlanPortMask</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0FFFFFFFF0000000</default-value>
+        </attr>
+        <attr>
+            <name>VlanUntaggedPortMask</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0000000000000000</default-value>
+        </attr>
+		<attr>
+            <name>vlanPortMask_4</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>8421084210842108421084210842100021084210840000000000</default-value>
+        </attr>
+        <attr>
+            <name>vlanUntaggedPortMask_4</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0000000000000000000000000000000000000000000000000000</default-value>
+        </attr>
+    </class>
+    <class name="ComponentMainSwitchHandlerSnmpPolling">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>ComponentMainSwitchHandlerSnmpPollingId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>SnmpPollingTime</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>300</default-value>
+        </attr>
+    </class>
+</imm:IMM-contents>

@@ -1,0 +1,342 @@
+#Includes
+includes:
+  - 'BSC_param.yml'
+
+#Resources
+resources:
+  # OM VLANs
+  om_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "OM_INNER_VLAN_NAME" }
+    vid: { get_param : "OM_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+      - { get_param : "LOCAL_PORT" }
+      
+  om_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "OM_INNER_VLAN_NAME" }
+    vid: { get_param : "OM_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  #### CBC VLANs
+  cbc_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "CBC_INNER_VLAN_NAME" }
+    vid: { get_param : "CBC_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  cbc_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "CBC_INNER_VLAN_NAME" }
+    vid: { get_param : "CBC_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  cbc_inner_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "CBC_INNER_VLAN_NAME" }
+    vid: { get_param : "CBC_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      - { get_param : "AGGREGATOR_PORT" }
+  
+  #### GB VLANs
+  gb_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "GB_INNER_VLAN_NAME" }
+    vid: { get_param : "GB_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  gb_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "GB_INNER_VLAN_NAME" }
+    vid: { get_param : "GB_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  gb_inner_vlan_t_l_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "GB_INNER_VLAN_NAME" }
+    vid: { get_param : "GB_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      - { get_param : "AGGREGATOR_PORT" }
+  
+  ### ABIS VLANs
+  abis_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "ABIS_INNER_VLAN_NAME" }
+    vid: { get_param : "ABIS_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+      
+  abis_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "ABIS_INNER_VLAN_NAME" }
+    vid: { get_param : "ABIS_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  abis_inner_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "ABIS_INNER_VLAN_NAME" }
+    vid: { get_param : "ABIS_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      - { get_param : "AGGREGATOR_PORT" }
+    
+  #### A Userplane VLANs
+  a_userplane_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "A_USERPLANE_INNER_VLAN_NAME" }
+    vid: { get_param : "A_USERPLANE_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  a_userplane_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "A_USERPLANE_INNER_VLAN_NAME" }
+    vid: { get_param : "A_USERPLANE_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  a_userplane_inner_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "A_USERPLANE_INNER_VLAN_NAME" }
+    vid: { get_param : "A_USERPLANE_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      - { get_param : "AGGREGATOR_PORT" }
+  
+  ### OEN VLANs
+  oen_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "OEN_INNER_VLAN_NAME" }
+    vid: { get_param : "OEN_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  oen_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "OEN_INNER_VLAN_NAME" }
+    vid: { get_param : "OEN_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  oen_inner_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "OEN_INNER_VLAN_NAME" }
+    vid: { get_param : "OEN_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      - { get_param : "AGGREGATOR_PORT" }
+  
+  ### IPS VLANs (SEPARATED)
+  ips_inner_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "IPS_INNER_VLAN_NAME" }
+    vid: { get_param : "IPS_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+      - { get_param : "TRANSPORT_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  ips_inner_vlan_c_apt:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "IPS_INNER_VLAN_NAME" }
+    vid: { get_param : "IPS_INNER_VLAN_ID" }
+    magazine: APT
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "SUBRACK_PORT" }
+    untagged_ports:
+      - { get_param : "ALL_BP_PORTS" }
+  
+  ips_inner_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "IPS_INNER_VLAN_NAME" }
+    vid: { get_param : "IPS_INNER_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "CONTROL_PORT" }
+      
+  ### SS7 VLANs (SEPARATED)
+  ss7_inner_vlan_t:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SS7_INNER_VLAN_NAME" }
+    vid: { get_param : "SS7_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "A1_PORT" }
+      - { get_param : "ALL_BP_PORTS" }
+  
+  ### EVOET_Ingress VLANs (SEPARATED)
+  evoet_vlan_t_l_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "EVOET_INGRESS_VLAN_NAME" }
+    vid: { get_param : "EVOET_INGRESS_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    tagged_ports:
+      - { get_param : "A1_PORT" }
+      - { get_param : "ALL_BP_PORTS" }
+    
+  ### Subnet VLANs #############################################################################################################################
+  ### OM
+  om_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "OM_INNER_SUBNET" }
+    vid: { get_param : "OM_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+      
+  ### CBC
+  cbc_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "CBC_INNER_SUBNET" }
+    vid: { get_param : "CBC_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    
+  ### GB
+  gb_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "GB_INNER_SUBNET" }
+    vid: { get_param : "GB_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+      
+  ### ABIS
+  abis_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "ABIS_INNER_SUBNET" }
+    vid: { get_param : "ABIS_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    
+  ### A_USERPLANE
+  a_userplane_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "A_USERPLANE_INNER_SUBNET" }
+    vid: { get_param : "A_USERPLANE_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    
+  ### OEN
+  oen_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "OEN_INNER_SUBNET" }
+    vid: { get_param : "OEN_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    
+  ### IPS
+  ips_subnet_vlan:
+    type: SUBNETVLAN
+    plane: CONTROL
+    ipv4subnet: { get_param : "IPS_INNER_SUBNET" }
+    vid: { get_param : "IPS_INNER_VLAN_ID" }
+    magazine: [ APZ, APT ]
+    side: [ LEFT, RIGHT ]
+    

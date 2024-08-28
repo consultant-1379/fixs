@@ -1,0 +1,92 @@
+##
+# ------------------------------------------------------------------------
+#     Copyright (C) 2013 Ericsson AB. All rights reserved.
+# ------------------------------------------------------------------------
+##
+# models.info TEMPLATE
+##
+# Description:
+#       Configuration file used to perform IMM model changes during software upgrade for CMXH block.
+##
+##
+# Changelog:
+# - 11-05-2015 - Shiva Papini    (XSHIPAP)      Updated for AXE16A 
+##
+# Report here FOR EACH package version, all introduced model changes, in the following format,
+# starting from the first version from which you want to support upgrade, with the most recent on top
+#4.3 LSV2217
+VERSION: CXC1371534_9-R1K
+
+#4.0 LSV07
+VERSION: CXC1371534_9-R1J
+
+#4.0 LSV07
+VERSION: CXC1371534_9-R1H
+
+#4.0
+VERSION: CXC1371534_9-R1G
+
+#3.8 LSV02
+VERSION: CXC1371534_9-R1F
+
+#3.7 CM001
+VERSION: CXC1371534_9-R1E
+
+#3.6.2- REBASE
+VERSION: CXC1371534_9-R1D
+
+#3.7
+VERSION: CXC1371534_9-R1C
+
+#3.6.2
+VERSION: CXC1371534_9-R1B
+
+#3.4.4
+VERSION: CXC1371534_9-R1A04
+VERSION: CXC1371534_9-R1A03
+VERSION: CXC1371534_9-R1A02
+VERSION: CXC1371534_9-R1A01
+
+VERSION: CXC1371534_5-R1B
+
+#RM001
+VERSION: CXC1371534_5-R1A05
+
+#SLES12_IPA -AXE17A
+VERSION: CXC1371534_5-R1A04
+
+#SLES12_IPA -AXE17A
+VERSION: CXC1371534_5-R1A03
+
+#SLES12_IPA -AXE17A
+VERSION: CXC1371534_5-R1A02
+
+#SLES12_IPA -AXE17A
+VERSION: CXC1371534_5-R1A01
+
+#LSV05 - AXE17A
+VERSION:CXC1371490_5-R1A01
+
+#Upgrade from 3.1.0 to LSV14
+VERSION: CXC1371534-R1B
+
+#LSV16 - AXE16A
+VERSION: CXC1371534-R1A03
+
+#LSV15 - AXE16A
+VERSION: CXC1371534-R1A02
+
+#LSV14 - AXE16A
+VERSION: CXC1371534-R1A01
+
+cmw-immclass-modify $BUNDLE_NAME ComponentMainSwitchHandlerVlanParameter
+
+VERSION:CXC1371490-R1B
+
+VERSION:CXC1371490-R1A01
+
+VERSION:CXC1371433-R2A
+
+
+
+

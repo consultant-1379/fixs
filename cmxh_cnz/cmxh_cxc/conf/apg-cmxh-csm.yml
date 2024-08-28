@@ -1,0 +1,48 @@
+csm-version: '1.0'
+components:
+- uid: fixs.cmxh
+  name: fixs-cmxh
+  description: FIXS CMXH component
+  availability-manager: AMF
+  software:
+    sdp: ERIC-FIXS_CMXHBIN-CXC1371534
+  supersedes:
+  - base-component: ERIC-APG_CMXH
+  availability-properties:
+    control-policy:
+      type: ADVANCED
+    multiplicity-policy:
+      node-active: ONE
+      node-standby: ONE
+      node-active-standby: 'NO'
+      cluster-active: ONE
+      cluster-standby: ONE
+    lifecycle-control:
+      prefix: /opt/ap/fixs/bin
+      start: fixs_cmxh_clc instantiate
+      stop: fixs_cmxh_clc cleanup
+      monitor-keys:
+      - key: fixs_cmxhd_hck
+        period: 240s
+        timeout: 180s
+      promote-demote-timeout: 200s
+      migrate-timeout: 60s
+      recovery-policy: COMPONENT_RESTART
+      start-stop-timeout: 100s
+  constraints:
+    installation:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+    upgrade:
+      after:
+      - component: acs.lct.lib
+        method: DIFFERENT-STEP
+  meta-data:
+    component-version: 9.0.10-0
+    deliverable:
+      deployment-package: fixs_cmxh-9.0.10-0-deployment-CXC1371534.tar.gz
+      runtime-package: fixs_cmxh-9.0.10-0-runtime-CXC1371534.tar.gz
+    software:
+    - file-name: FIXS_CMXHBIN-CXC1371534_9-R1K.x86_64.sdp
+      bundle-name: ERIC-FIXS_CMXHBIN-CXC1371534_9-R1K

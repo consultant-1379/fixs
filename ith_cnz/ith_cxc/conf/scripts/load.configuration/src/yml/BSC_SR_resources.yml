@@ -1,0 +1,105 @@
+#Includes
+includes:
+  - 'BSC_param.yml'
+
+#Resources
+resources:
+  #PORTS
+  sr_front_port_c_apz:
+    type: PORT
+    plane: CONTROL
+    name: { get_param : "SR_OM_1G_FRONT_PORT" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ] 
+    admin_state: UNLOCKED
+
+  sr_front_port_t_l_apz:
+    type: PORT
+    plane: TRANSPORT
+    name: 
+      - { get_param : "SR_OM_FRONT_PORT" }
+      - { get_param : "SR_CBC_FRONT_PORT" }
+      - { get_param : "SR_GB_FRONT_PORT" }
+      - { get_param : "SR_ABIS_FRONT_PORT" }
+      - { get_param : "SR_A_USERPLANE_FRONT_PORT" }
+      - { get_param : "SR_SS7_FRONT_PORT" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    admin_state: UNLOCKED
+
+  #SR_OM
+  sr_om_vlan_c_apz:
+    type: VLAN
+    plane: CONTROL
+    name: { get_param : "SR_OM_VLAN_NAME" }
+    vid: { get_param : "SR_OM_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_OM_1G_FRONT_PORT" }
+    user_label: "Site Router OM VLAN"
+
+  sr_om_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_OM_VLAN_NAME" }
+    vid: { get_param : "SR_OM_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_OM_FRONT_PORT" }
+    
+  #CBC
+  sr_cbc_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_CBC_VLAN_NAME" }
+    vid: { get_param : "SR_CBC_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_CBC_FRONT_PORT" }
+         
+  #GB
+  sr_gb_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_GB_VLAN_NAME" }
+    vid: { get_param : "SR_GB_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_GB_FRONT_PORT" }
+      
+  #ABIS
+  sr_abis_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_ABIS_VLAN_NAME" }
+    vid: { get_param : "SR_ABIS_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_ABIS_FRONT_PORT" }
+      
+  #A_userplane
+  sr_a_userplane_vlan_t_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_A_USERPLANE_VLAN_NAME" }
+    vid: { get_param : "SR_A_USERPLANE_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_A_USERPLANE_FRONT_PORT" }
+     
+  #SS7
+  sr_ss7_vlan_t_l_apz:
+    type: VLAN
+    plane: TRANSPORT
+    name: { get_param : "SR_SS7_VLAN_NAME" }
+    vid: { get_param : "SR_SS7_VLAN_ID" }
+    magazine: APZ
+    side: [ LEFT , RIGHT ]
+    tagged_ports:
+      - { get_param : "SR_SS7_FRONT_PORT" }

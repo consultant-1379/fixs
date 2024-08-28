@@ -1,0 +1,788 @@
+includes:
+  - 'BSC_param.yml'
+
+#Internal parameters
+parameters:
+   OAM_INTERNAL_IF_NAME: 'OMInner'
+   OAM_IPS_INTERNAL_IF_NAME: 'IPSInner'
+   OAM_OEN_INTERNAL_IF_NAME: 'OENInner'
+   OAM_EXTERNAL_IF_NAME: 'SROM'
+   
+   CBC_INTERNAL_IF_NAME: 'CBCInner'
+   CBC_EXTERNAL_IF_NAME: 'SRCBC'
+   
+   GB_INTERNAL_IF_NAME: 'GBInner'
+   GB_EXTERNAL_IF_NAME: 'SRGB'
+   
+   ABIS_INTERNAL_IF_NAME: 'ABISInner'
+   ABIS_EXTERNAL_IF_NAME: 'SRABIS'
+   
+   A_USERPLANE_INTERNAL_IF_NAME: 'AUsPlInner'
+   A_USERPLANE_EXTERNAL_IF_NAME: 'SRAUsPl'
+   
+   SS7_INTERNAL_IF_NAME: 'SS7Inner'
+   SS7_EXTERNAL_IF_NAME: 'SRSS7'
+
+resources:
+################################### OM ##################################################################
+#Routers
+   oam_router:
+     type: ROUTER
+     name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+  
+#BFD Profiles
+   oam_bfd_prof_1:
+     type: BFD_PROFILE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   #OM_Inner
+   oam_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "OAM_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "OAM_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_OAM_INT_NAME" }
+
+   oam_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "OAM_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "OAM_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_OAM_INT_NAME" }
+     
+   #IPS_Inner  
+   oam_ips_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "OAM_IPS_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_IPS_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_IPS_INTERNAL_ADDRESS_LEFT" }
+
+   oam_ips_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "OAM_IPS_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_IPS_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_IPS_INTERNAL_ADDRESS_RIGHT" }
+     
+   #OEN_Inner
+   oam_oen_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "OAM_OEN_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_OEN_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_OEN_INTERNAL_ADDRESS_LEFT" }
+
+   oam_oen_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "OAM_OEN_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_OEN_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_OEN_INTERNAL_ADDRESS_RIGHT" }
+     
+   #SR_OM
+   oam_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "OAM_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "OAM_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_OAM_EXT_NAME" }
+
+   oam_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "OAM_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "OAM_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "OAM_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "OAM_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_OAM_EXT_NAME" }
+
+#Static Routes
+   oam_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : OAM_STATIC_ROUTES_LEFT }
+     
+   oam_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "OAM_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : OAM_STATIC_ROUTES_RIGHT }
+
+#Vrrp Interfaces
+   oam_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_OAM_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_OAM_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_OAM_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_OAM_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_OAM_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_OAM_INT_VR_ID" }
+     
+   oam_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_OAM_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_OAM_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_OAM_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_OAM_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_OAM_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_OAM_EXT_VR_ID" }
+     
+################################### CBC ##################################################################
+#Routers
+   cbc_router:
+     type: ROUTER
+     name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+     
+#BFD Profiles
+   cbc_bfd_prof_1:
+     type: BFD_PROFILE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   cbc_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "CBC_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "CBC_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "CBC_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "CBC_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_CBC_INT_NAME" }
+
+   cbc_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "CBC_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "CBC_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "CBC_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "CBC_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_CBC_INT_NAME" }
+
+   cbc_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "CBC_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "CBC_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "CBC_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "CBC_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_CBC_EXT_NAME" }
+
+   cbc_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "CBC_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "CBC_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "CBC_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "CBC_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_CBC_EXT_NAME" }
+
+#Static Routes
+   cbc_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : CBC_STATIC_ROUTES_LEFT }
+     
+   cbc_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "CBC_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : CBC_STATIC_ROUTES_RIGHT }
+
+#Vrrp Interfaces
+   
+   cbc_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_CBC_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_CBC_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_CBC_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_CBC_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_CBC_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_CBC_INT_VR_ID" }
+     
+   cbc_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_CBC_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_CBC_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_CBC_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_CBC_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_CBC_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_CBC_EXT_VR_ID" }
+     
+################################### GB ##################################################################
+#Routers
+   gb_router_l:
+     type: ROUTER
+     name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+     
+#BFD Profiles
+   gb_bfd_prof_1:
+     type: BFD_PROFILE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   gb_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "GB_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "GB_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "GB_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "GB_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_GB_INT_NAME" }
+
+   gb_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "GB_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "GB_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "GB_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "GB_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_GB_INT_NAME" }
+
+   gb_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "GB_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "GB_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "GB_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "GB_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_GB_EXT_NAME" }
+
+   gb_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "GB_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "GB_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "GB_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "GB_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_GB_EXT_NAME" }
+
+#Static Routes
+   gb_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : GB_STATIC_ROUTES_LEFT }
+     
+   gb_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "GB_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : GB_STATIC_ROUTES_RIGHT }
+
+
+#Vrrp Interfaces
+   
+   gb_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_GB_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_GB_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_GB_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_GB_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_GB_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_GB_INT_VR_ID" }
+     
+   gb_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_GB_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_GB_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_GB_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_GB_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_GB_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_GB_EXT_VR_ID" }
+     
+################################### ABIS ##################################################################
+#Routers
+   abis_router_l:
+     type: ROUTER
+     name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+  
+#BFD Profiles
+   abis_bfd_prof_1:
+     type: BFD_PROFILE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   abis_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "ABIS_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "ABIS_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "ABIS_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "ABIS_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_ABIS_INT_NAME" }
+
+   abis_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "ABIS_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "ABIS_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "ABIS_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "ABIS_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_ABIS_INT_NAME" }
+
+   abis_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "ABIS_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "ABIS_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "ABIS_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "ABIS_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_ABIS_EXT_NAME" }
+
+   abis_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "ABIS_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "ABIS_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "ABIS_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "ABIS_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_ABIS_EXT_NAME" }
+
+#Static Routes
+   abis_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : ABIS_STATIC_ROUTES_LEFT }
+     
+   abis_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "ABIS_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : ABIS_STATIC_ROUTES_RIGHT }
+
+
+#Vrrp Interfaces
+   
+   abis_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_ABIS_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_ABIS_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_ABIS_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_ABIS_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_ABIS_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_ABIS_INT_VR_ID" }
+     
+   abis_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_ABIS_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_ABIS_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_ABIS_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_ABIS_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_ABIS_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_ABIS_EXT_VR_ID" }
+     
+ ################################### A_USERPLANE ##################################################################
+#Routers
+   a_userplane_router_l:
+     type: ROUTER
+     name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+
+#BFD Profiles
+   a_userplane_bfd_prof_1:
+     type: BFD_PROFILE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   a_userplane_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "A_USERPLANE_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "A_USERPLANE_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "A_USERPLANE_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "A_USERPLANE_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_A_USERPLANE_INT_NAME" }
+
+   a_userplane_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "A_USERPLANE_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "A_USERPLANE_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "A_USERPLANE_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "A_USERPLANE_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_A_USERPLANE_INT_NAME" }
+
+   a_userplane_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "A_USERPLANE_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "A_USERPLANE_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "A_USERPLANE_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "A_USERPLANE_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_A_USERPLANE_EXT_NAME" }
+
+   a_userplane_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "A_USERPLANE_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "A_USERPLANE_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "A_USERPLANE_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "A_USERPLANE_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_A_USERPLANE_EXT_NAME" }
+
+#Static Routes
+   a_userplane_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : A_USERPLANE_STATIC_ROUTES_LEFT }
+     
+   a_userplane_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "A_USERPLANE_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : A_USERPLANE_STATIC_ROUTES_RIGHT }
+
+
+#Vrrp Interfaces
+   
+   a_userplane_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_A_USERPLANE_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_A_USERPLANE_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_A_USERPLANE_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_A_USERPLANE_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_A_USERPLANE_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_A_USERPLANE_INT_VR_ID" }
+     
+   a_userplane_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_A_USERPLANE_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_A_USERPLANE_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_A_USERPLANE_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_A_USERPLANE_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_A_USERPLANE_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_A_USERPLANE_EXT_VR_ID" }
+     
+################################### SS7 ##################################################################
+#Routers
+   ss7_router_l:
+     type: ROUTER
+     name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT , RIGHT ]
+
+#BFD Profiles
+   ss7_bfd_prof_1_l:
+     type: BFD_PROFILE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: [ LEFT, RIGHT ]
+     name: { get_param : "BFD_PROFILE_1_NAME" }
+     det_multiplier: { get_param : "BFD_PROFILE_1_DETECTION_MULTIPLIER" }
+     int_rx_min_required: { get_param : "BFD_PROFILE_1_RX_MIN_REQ" }
+     int_tx_min_desired: { get_param : "BFD_PROFILE_1_TX_MIN_DES" }
+
+#Interfaces
+   ss7_internal_if_l:
+     type: INTERFACE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "SS7_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "SS7_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "SS7_INTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "SS7_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_SS7_INT_NAME" }
+
+   ss7_internal_if_r:
+     type: INTERFACE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "SS7_INTERNAL_IF_NAME" }
+     encapsulation: { get_param : "SS7_INTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "SS7_INTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "SS7_INTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_SS7_INT_NAME" }
+
+   ss7_external_if_l:
+     type: INTERFACE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     name: { get_param : "SS7_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "SS7_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "SS7_EXTERNAL_ADDRESS_LEFT" }
+     bfd_profile: { get_param : "SS7_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'true'
+     vrrp_if_name: { get_param : "VRRP_SS7_EXT_NAME" }
+
+   ss7_external_if_r:
+     type: INTERFACE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     name: { get_param : "SS7_EXTERNAL_IF_NAME" }
+     encapsulation: { get_param : "SS7_EXTERNAL_IF_ENCAPSULATION" }
+     mtu: { get_param : "DEFAULT_MTU" }
+     admin_state: UNLOCKED
+     address: { get_param : "SS7_EXTERNAL_ADDRESS_RIGHT" }
+     bfd_profile: { get_param : "SS7_EXTERNAL_IF_BFD_PROFILE" }
+     vrrp_prioritized_session: 'false'
+     vrrp_if_name: { get_param : "VRRP_SS7_EXT_NAME" }
+
+#Static Routes
+   ss7_route_l:
+     type: STATIC_ROUTE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: LEFT
+     route: { get_param : SS7_STATIC_ROUTES_LEFT }
+     
+   ss7_route_r:
+     type: STATIC_ROUTE
+     router_name: { get_param : "SS7_ROUTER_NAME" }
+     magazine: APZ
+     side: RIGHT
+     route: { get_param : SS7_STATIC_ROUTES_RIGHT }
+
+
+#Vrrp Interfaces
+   
+   ss7_vrrp_if_internal:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_SS7_INT_NAME" }
+     preempt_mode: { get_param : "VRRP_SS7_INT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_SS7_INT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_SS7_INT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_SS7_INT_ADDRESS" }
+     vr_id: { get_param : "VRRP_SS7_INT_VR_ID" }
+     
+   ss7_vrrp_if_external:
+     type: VRRP_INTERFACE
+     name: { get_param : "VRRP_SS7_EXT_NAME" }
+     preempt_mode: { get_param : "VRRP_SS7_EXT_PREEMPT_MODE" }
+     preempt_holdtime: { get_param : "VRRP_SS7_EXT_PREEMPT_HOLDTIME" }
+     advertise_interval: { get_param : "VRRP_SS7_EXT_ADV_INTERVAL" }
+     address: { get_param : "VRRP_SS7_EXT_ADDRESS" }
+     vr_id: { get_param : "VRRP_SS7_EXT_VR_ID" }
+   
+   
+   #ACL...
+#   acl:     
+#     type: ACL
+#     magazine: APZ
+#     side: LEFT
+#     router_name: 
+#       - { get_param : 'OAM_ROUTER_NAME'}
+#       - { get_param : 'CBC_ROUTER_NAME'}
+#       - { get_param : 'GB_ROUTER_NAME'}
+#       - { get_param : 'ABIS_ROUTER_NAME'}
+#       - { get_param : 'A_USERPLANE_ROUTER_NAME'}
+#       - { get_param : 'SS7_ROUTER_NAME'}
+       
+#     name: "Acl"
+#     acl_entries:
+#       entry_1: 
+#         name: "rule1"
+#         action: 'DENY'
+#         priority: 1
+#         dst_addr: ['10.0.0.0/24' , '10.1.0.0/24' ] 
+#         src_addr: '10.10.0.0/24'
+#         dscp: [ 1, '10..20' ]
+#         fragment_type: 'INITIAL'
+#         icmp_type: 
+#         ip_protocol: 10
+#         dst_port: 99
+#         src_port: ['12..33' , '35' ]
+       
+#       entry_2:
+#         name: "rule2"
+#         action: PERMIT
+#         priority: 2
+#         dst_addr: 
+#         src_addr: 
+#         dscp: 10
+#         fragment_type: 
+#         icmp_type: 
+#         ip_protocol:  
+#         dst_port: 992
+#         src_port: 1002
+       
+       
+       
+       

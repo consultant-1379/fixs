@@ -1,0 +1,2733 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+	Copyright (c) 2021 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Oct 14, 2021 3:46:22 PM using:
+	* com.ericsson.ecim.m2m 3.14.0.202105061142
+	* com.ericsson.ecim.dsl 3.14.0.202105061142
+	* com.ericsson.ecim.edm 3.14.0.202105061142
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle/>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>19089-CXA 117 0049/13</docNum>
+            <docLang>Uen</docLang>
+            <docRev>E</docRev>
+            <docDate>2021-10-14</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XSIGANO</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Sivakumar Ganoz" contact="XSIGANO" correction="1" date="2021-10-14" docNo="19089-CXA 117 0049/13" name="AxeInfrastructureTransportM" namespace="urn:com:ericsson:ecim:AxeInfrastructureTransportM" namespacePrefix="axeinfrastructuretransportm" organization="" release="0" revision="E" version="3">
+        <description>AXE Infrastructure Transport Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <modelFeatures modelType="Template">
+            <modelFeature featureType="basic" name="CPI_HIDDEN"/>
+        </modelFeatures>
+        <struct name="Ipv4SubnetVlan">
+            <description>IPV4 subnet for the VLAN ID classification.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - Invalid VLAN ID reference: Specified VLAN ID does not match any existing VLAN on the Bridge.
+     - Unsupported Bridge for Subnet VLAN: Subnet VLAN is not supported on the selected Bridge.
+     - Invalid IPv4 subnet: Specified value for ipv4Subnet attribute is not a valid IPv4 subnet.
+     - Specified Ipv4Subnet is already used: Another Subnet VLAN with the same IPv4 subnet already exists on the same Bridge.</description>
+            <structMember name="vlanId">
+                <description>Specifes the VLAN ID to be assigned to the classified frames.</description>
+                <derivedDataTypeRef name="VlanId">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="ipv4Subnet">
+                <description>Specifies the IPv4 subnet for the VLAN ID classification. 
+One subnet can be assigned more than one VLAN.</description>
+                <derivedDataTypeRef name="Ipv4AddressAndPrefixLengthStr">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <enum name="FragmentType">
+            <description>Type of IP fragment. </description>
+            <enumMember name="FRAGMENT">
+                <description>The entry matches all fragments. FO &gt; 0 or MF != 0. </description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="INITIAL">
+                <description>The entry matches complete (unfragmented) packets as well as initial fragments, FO==0. </description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="NONINITIAL">
+                <description>The entry matches non-initial fragments. FO&gt;0.</description>
+                <value>5</value>
+            </enumMember>
+        </enum>
+        <enum name="VrrpSessionState">
+            <description>VRRP state of the virtual router.</description>
+            <enumMember name="INIT">
+                <description>Indicates that the virtual router is waiting for a startup event.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="BACKUP">
+                <description>Indicates that the virtual router is monitoring the availability of the master router.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="MASTER">
+                <description>Indicates that virtual router is forwarding packets for IP addresses associated with this router.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="VrrpvPrioSession">
+            <description>Configure the type of this VRRP router.</description>
+            <enumMember name="TRUE">
+                <description>Vrrpv3 session with higher priority than the other session referencing the same Vrrpv3Interface MO.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FALSE">
+                <description>Vrrpv3 session with lower priority than the other session referencing the same Vrrpv3Interface MO.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="AdmState">
+            <description>Administrative state of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description>The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="SHUTTINGDOWN">
+                <description>Use of the resource is administratively permitted to existing instances of use only.
+While the system remains in the shutting down state the manager may at any time cause the managed object to revert to the locked state.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="BfdSessionDiagnosticCode">
+            <description>Common BFD diagnostic codes.</description>
+            <enumMember name="NO_DIAG">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="CONTROL_DETECTION_TIME_EXPIRED">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ECHO_FUNCTION_FAILED">
+                <value>2</value>
+            </enumMember>
+            <enumMember name="NEIGHBOR_SIGNALED_SESSION_DOWN">
+                <value>3</value>
+            </enumMember>
+            <enumMember name="FORWARDING_PLANE_RESET">
+                <value>4</value>
+            </enumMember>
+            <enumMember name="PATH_DOWN">
+                <value>5</value>
+            </enumMember>
+            <enumMember name="CONCATENATED_PATH_DOWN">
+                <value>6</value>
+            </enumMember>
+            <enumMember name="ADMIN_DOWN">
+                <value>7</value>
+            </enumMember>
+            <enumMember name="REVERSE_CONCATENATED_PATH_DOWN">
+                <value>8</value>
+            </enumMember>
+        </enum>
+        <enum name="EthPortOperatingMode">
+            <description>Operating modes specify speed, duplex and master/slave states.</description>
+            <enumMember name="10M_HALF">
+                <description>10Mbps speed, half duplex.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="10M_FULL">
+                <description>10Mbps speed, full duplex.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="100M_HALF">
+                <description>100Mbps speed, half duplex.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="100M_FULL">
+                <description>100Mbps speed, full duplex.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="1G_FULL">
+                <description>1Gbps speed, full duplex.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="1G_FULL_SLAVE">
+                <description>1Gbps speed, full duplex, slave mode.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="1G_FULL_MASTER">
+                <description>1Gbps speed, full duplex, master mode.</description>
+                <value>8</value>
+            </enumMember>
+            <enumMember name="10G_FULL">
+                <description>10Gbps speed, full duplex.</description>
+                <value>9</value>
+            </enumMember>
+            <enumMember name="40G_FULL">
+                <description>40Gbps speed, full duplex.</description>
+                <value>12</value>
+            </enumMember>
+            <enumMember name="100G_FULL">
+                <description>100Gbps speed, full duplex.</description>
+                <value>13</value>
+            </enumMember>
+            <enumMember name="10G_FULL_MASTER">
+                <description>10Gbps speed, full duplex, master mode.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="10G_FULL_SLAVE">
+                <description>10Gbps speed, full duplex, slave mode.</description>
+                <value>11</value>
+            </enumMember>
+        </enum>
+        <enum name="AclAction">
+            <description>ACL actions.</description>
+            <enumMember name="PERMIT">
+                <description>Allow the packet that matches the ACL to flow. </description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="DENY">
+                <description>Drop the packet if it matches the ACL. </description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="BfdSessionOperState">
+            <description>The operational states of a BFD session.</description>
+            <enumMember name="ADMIN_DOWN">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="DOWN">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="INIT">
+                <value>2</value>
+            </enumMember>
+            <enumMember name="FAILING">
+                <value>3</value>
+            </enumMember>
+            <enumMember name="UP">
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="BfdStaticRoutesInterfaceType">
+            <description>State of BFD static routes.</description>
+            <enumMember name="DISABLED">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="VrrpSessionId">
+            <description>VRRP Session Identifier.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>12</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>12</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([A-Za-z0-9]*)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="VrrpSessionId must not contain special character and must not exceed 12 characters in length." format="posix_ere" name="Pattern Constraint"><![CDATA[^([A-Za-z0-9]*)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="L4PortStrST">
+            <description>Regular expression pattern type for transport protocol port [0-65535] inputs. 
+
+Covering list of values, ranges. 
+Regexp=^((BT)|((BT)(\.\.)(BT)))$ where BT=[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5].</description>
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|(([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\.\.)([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|(([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\.\.)([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="Priority">
+            <description>Priority of a policy rule.
+
+Priority values must be unique amongst policy rules under the same policy.
+Rule: valid values are 0 and positive integers.
+Note: 0 is the highest priority, larger values give lower priority.
+
+Maximum possible range: 0..65535 </description>
+            <baseType>
+                <uint16>
+                    <range>
+                        <min>0</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint16>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AddressId">
+            <description>Address Identifier.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>12</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>12</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([A-Za-z0-9]*)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="AddressId must not contain special character and must not exceed 12 characters in length." format="posix_ere" name="Pattern Constraint"><![CDATA[^([A-Za-z0-9]*)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="DstId">
+            <description>Dst Identifier.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>12</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>12</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([A-Za-z0-9]*)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="DstId must not contain special character and must not exceed 12 characters in length." format="posix_ere" name="Pattern Constraint"><![CDATA[^([A-Za-z0-9]*)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="EcimEmpty">
+            <description>Represents a leaf that has no value, it conveys information by its presence or absence.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <boolean/>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="IcmpType">
+            <description>Regular expression pattern for IP ACL ICMP Type [0-255], covering single and range. 
+
+Regexp : ^((BT)|((BT)(\.\.)(BT)))$ where BT=[0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5]</description>
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])|(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.\.)([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])|(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.\.)([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="AddressIPv4andPrefixLengthStr">
+            <description>IPv4 address string, controlled by a regular expression.
+The address is specified in dotted-quad decimal notation in accordance with RFC791, without leading zeros.
+
+ 
+
+The IPv4 address is within the range [0-126,128-223].[0-255].[0-255].[0-255], 7-15 characters. 
+The prefix length is a number from 0 to 31.</description>
+            <baseType>
+                <string>
+                    <validValues>(^(([0-9]|22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]))/([0-9]|[1-2][0-9]|3[0-1])$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(([0-9]|22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]))/([0-9]|[1-2][0-9]|3[0-1])$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="Ipv4AddressAndPrefixLengthStr">
+            <description>IPv4 address string, controlled by a regular expression.
+The address is specified in dotted-quad decimal notation in accordance with RFC791, without leading zeros.
+
+The IPv4 address is within the range [0-126,128-223].[0-255].[0-255].[0-255], 7-15 characters. 
+The prefix length is a number from 0 to 32.
+</description>
+            <baseType>
+                <string>
+                    <validValues>(^(([0-9]|22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]))/([0-9]|[1-2][0-9]|3[0-2])$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(([0-9]|22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]))/([0-9]|[1-2][0-9]|3[0-2])$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="VlanId">
+            <description>VLAN id 12-bit value.</description>
+            <baseType>
+                <uint16>
+                    <range>
+                        <min>0</min>
+                        <max>4093</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>4093</max>
+                        </subrange>
+                    </ranges>
+                </uint16>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="Ipv4UnicastAddressStr">
+            <description>IPv4 address string, controlled by a regular expression.
+
+The address is specified in dotted-quad decimal notation in accordance with RFC791, without leading zeros.
+
+IPv4 addresses are within the range [1-126,128-223].[0-255].[0-255].[0-255], 7-15 characters. 
+Valid characters: 0123456789.
+
+Example: 1.1.1.1, 1.1.255.255 
+</description>
+            <baseType>
+                <string>
+                    <validValues>(^((22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9]|[1-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]))$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^((22[0-3]|2[01][0-9]|1[013456789][0-9]|12[012345689]|[1-9][0-9]|[1-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]))$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="BfdProfileId">
+            <description>BFD Profile Identifier.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>12</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>12</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([A-Za-z0-9]*)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([A-Za-z0-9]*)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="MacAddressStr">
+            <description>MAC address string, controlled by a regular expression.
+
+Address should be specified in colon separated hexadecimal notation as described in IEEE 802. 
+MAC addresses must have 17 characters.
+Valid characters: 0123456789abcdefABCDEF
+Regular expression: ([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}
+Example: 00:12:34:56:78:9A 
+</description>
+            <baseType>
+                <string>
+                    <validValues>([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="IpDscpStrST">
+            <description>Smart type for IpDscp, covering a single value or a range.
+Regexp : ^((BT)|((BT)(\.\.)(BT)))$ where BT=[0-9]|[1-5][0-9]|6[0-3]
+
+A DSCP value. Can be a single value [dd] or a range [dd..dd], where dd represents an integer in {0..63}.
+
+Example: 1 or 5..10 
+</description>
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]|[1-5][0-9]|6[0-3])|(([0-9]|[1-5][0-9]|6[0-3])\.\.([0-9]|[1-5][0-9]|6[0-3])))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(([0-9]|[1-5][0-9]|6[0-3])|(([0-9]|[1-5][0-9]|6[0-3])\.\.([0-9]|[1-5][0-9]|6[0-3])))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="VirtualRouterId">
+            <description>Virtual Router Identifier. 
+It must be in the format:
+&lt;subrack&gt;_&lt;slot&gt;:&lt;VRname&gt;
+where &lt;subrack&gt; and &lt;slot&gt; are the subrack address and the slot position of the physical router hosting the VR. &lt;VRname&gt; is a string identifying the VR, it must not contain white spaces or special characters. 
+
+E.g.: 1.0.0.0_0:VRInstance1</description>
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]|[1][0-5]){1}.([0-9]|[1][0-5]){1}.0.([0-9]|[1][0-5]){1}_(0|25|26|28):([A-Za-z0-9]{1,12}))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Virtual Router Identifier must be in the format: &quot;&lt;subrack&gt;_&lt;slot&gt;:&lt;VRname&gt;&quot;. VRname must not contain special character and must not exceed 12 characters in length." format="posix_ere" name="Pattern Constraint"><![CDATA[^(([0-9]|[1][0-5]){1}.([0-9]|[1][0-5]){1}.0.([0-9]|[1][0-5]){1}_(0|25|26|28):([A-Za-z0-9]{1,12}))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="DistanceValueType">
+            <description>Distance Value Type.</description>
+            <baseType>
+                <int16>
+                    <range>
+                        <min>1</min>
+                        <max>255</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>255</max>
+                        </subrange>
+                    </ranges>
+                </int16>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="IpProtocolNumberStrST">
+            <description>Regular expression pattern for IP protocol numbers [0-255], covering a single value or a range.
+
+Regexp : ^((BT)|((BT)(\.\.)(BT)))$ where BT=[0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5]
+
+Example: 1 or 5..10</description>
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])|(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.\.)([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])|(([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\.\.)([0-9]{1,2}|1[0-9]]]><![CDATA[{2}|2[0-4][0-9]|25[0-5])))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="VlanName">
+            <description>Type of vlanName.
+The string must not contain whitespace and must be less than 32 characters long.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>32</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>32</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^\S*$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^\S*$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Bridge_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BridgePort_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vlan_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_EthernetPort_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Aggregator_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Router_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BfdSessionIPv4_detectionTime">
+            <baseType>
+                <uint32>
+                    <unit>ms</unit>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BfdSessionIPv4_intervalTxNegotiated">
+            <baseType>
+                <uint32>
+                    <unit>ms</unit>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BfdProfile_detectionMultiplier">
+            <baseType>
+                <uint8>
+                    <range>
+                        <min>1</min>
+                        <max>255</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>255</max>
+                        </subrange>
+                    </ranges>
+                </uint8>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BfdProfile_intervalTxMinDesired">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>10</min>
+                        <max>60000</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>10</min>
+                            <max>60000</max>
+                        </subrange>
+                    </ranges>
+                    <unit>ms</unit>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_BfdProfile_intervalRxMinRequired">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>10</min>
+                        <max>60000</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>10</min>
+                            <max>60000</max>
+                        </subrange>
+                    </ranges>
+                    <unit>ms</unit>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_AddressIPv4_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_InterfaceIPv4_mtu">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>576</min>
+                        <max>9000</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>576</min>
+                            <max>9000</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_InterfaceIPv4_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vrrpv3Session_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vrrpv3Interface_vrIdentity">
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1</min>
+                        <max>255</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>255</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vrrpv3Interface_advertiseInterval">
+            <baseType>
+                <int32>
+                    <range>
+                        <min>50</min>
+                        <max>40950</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>50</min>
+                            <max>40950</max>
+                        </subrange>
+                    </ranges>
+                    <unit>ms</unit>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vrrpv3Interface_preemptHoldTime">
+            <baseType>
+                <int32>
+                    <range>
+                        <min>0</min>
+                        <max>500</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>500</max>
+                        </subrange>
+                    </ranges>
+                    <unit>s</unit>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_Vrrpv3Interface_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_AclIpv4_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="AxeInfrastructureTransportM_AclEntryIpv4_userLabel">
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>128</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <class name="TransportM">
+            <description>Represents the root MOC for AXE Infrastructure Transport function MOM.
+It is automatically created in case APG cableless configuration with SMX or SCX shelf architecture.
+It allows the configuration of infrastructure L2 and L3 network connectivity.
+The L2 configuration includes:
+•	Port configuration 
+•	VLAN configuration
+•	Link aggregation configuration (LAGs)
+The L3 configuration can be further divided in 2 subparts:
+•	basic settings: Routers, IPv4 interfaces, Static Routes.
+•	advanced settings:Bidirectional Forwarding Detection (BFD), Virtual Router Redundnacy Protocol (VRRP), Access Control List (ACL).
+</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="transportMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string>
+                        <defaultValue>1</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Bridge">
+            <description>Represents an ethernet L2 forwarding technique. 
+A network bridge connects multiple network segments at the data link layer (Layer 2) of the OSI model. 
+In Ethernet networks, the term bridge formally means a device that behaves according to the IEEE 802.1D standards. 
+Bridging takes place at OSI Model Layer 2 (data-link layer), that it (including MAC Bridge, Provider Bridge) directs frames according to hardware assigned MAC addresses. 
+</description>
+            <systemCreated/>
+            <specification>802.1Q-2011</specification>
+            <attribute name="bridgeId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="bridgeAddress">
+                <description>Specifies the MAC address of the Bridge.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="MacAddressStr">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <specification>IEEE 802.1Q-2011</specification>
+            </attribute>
+            <attribute name="numberOfPorts">
+                <description>Specifies the number of ports attached to the bridge.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="numberOfVlans">
+                <description>Specifies the current number of VLANs defined on the bridge.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ipv4SubnetVlan">
+                <description>Represents an IPv4 subnet based VLAN. 
+For an inbound untagged frame, if it has an IPv4 header and its source IPv4 address belongs to the IPv4 subnet of this entry, the VlanId of this entry must be used.</description>
+                <dataType>
+                    <sequence>
+                        <structRef name="Ipv4SubnetVlan">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Bridge_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BridgePort">
+            <description>Represents a port attaching to a bridge.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.</description>
+            <systemCreated/>
+            <attribute name="bridgePortId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="operState">
+                <description>Specifies the current operative state of the port.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="defaultVlanId">
+                <description>Specifies the default VLAN ID for the inbound untagged frames.</description>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="VlanId">
+                        <defaultValue>1</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="portAddress">
+                <description>Specifies the physical address of the port attached to the bridge.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BridgePort_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="adminState">
+                <description>Specifies the intended state of the port.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Vlan">
+            <description>Represents a VLAN entity.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - System-protected object cannot be modified or deleted: The MO is system-protected and cannot be modified or deleted.
+     - Cannot remove an object referenced by other object(s): The MO cannot be deleted since it is referenced by other MO(s), whose DN(s) are listed in reservedBy attribute.
+     - Specified VLAN ID is already used: Another VLAN with the same VLAN ID already exists on the same Bridge.
+     - Cannot modify VLAN ID: A previously assigned VLAN ID cannot be changed.
+     - Cannot delete a VLAN used by a Subnet VLAN: Selected VLAN cannot be removed since it is used by a Subnet VLAN.
+     - Invalid tagged BridgePort specified: One or more of tagged BridgePort(s) specified are not valid for this VLAN.
+     - Invalid untagged BridgePort specified: One or more of untagged BridgePort(s) specified are not valid for this VLAN.
+     - Specified BridgePort is member of an Aggregator: One or more of tagged/untagged BridgePort spcified are member of an Aggregator and cannot be individually set as member of a VLAN.
+     - Same BridgePort cannot be set as both tagged and untagged member of a VLAN: One or more BridgePort are configured as both tagged and untagged in the same VLAN.</description>
+            <attribute name="vlanId">
+                <description>Holds the name used when identifying the MO.
+Specifies the name of the VLAN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="VlanName">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="taggedBridgePorts">
+                <description>Specifies the set of tagged member BridgePorts for this VLAN.
+Frames belonging to this VLAN will be VLAN-tagged upon transmission through tagged BridgePort members.</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="BridgePort">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="untaggedBridgePorts">
+                <description>Specifies the set of un-tagged BridgePort members for this VLAN.
+Frames belonging to this VLAN will be un-tagged when transmitted through an un-tagged member BridgePort.</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="BridgePort">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="vid">
+                <description>Specifies The VLAN identifier.
+If this attribute has no value, it will be ignored.
+If it has a non-empty value, this value must be unique. For a Vlan being a child of a Bridge MO, uniqueness means that no other Vlan under the same Bridge can have the same ID.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="VlanId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vlan_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>Contains a list of MO instances that reserve this MO instance.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EthernetPort">
+            <description>Represents a physical entity that provides Ethernet-like MAC service access point.
+One or more attributes setting can fail due to one of the following reasons: 
+- auto-negotiation configuration not allowed on this Ethernet port : the Ethernet port does not support auto-negotiation or it doesn't allow to ENABLE/DISABLE it.</description>
+            <systemCreated/>
+            <specification>IEEE 802.3</specification>
+            <attribute name="ethernetPortId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="macAddress">
+                <description>Specifies the assigned MAC address.</description>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="MacAddressStr">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="maxFrameSize">
+                <description>Specifies the maximum size in byte that the layer can pass onwards.
+The recommended value range is from 64 to 9600.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+            <attribute name="operOperatingMode">
+                <description>Specifies the operational speed, duplex and master/slave state of the Ethernet port.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="EthPortOperatingMode">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_EthernetPort_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            
+            <attribute name="autoNegotiateAdminState">
+                <description>Specifies the intended state of the auto-negotiation on the Ethernet port. 
+If supported by the Ethernet port, the auto-negotiation allows to negotiate with a connected device the mode of operation: speed rate, duplex mode (half duplex or full duplex), and flow control.
+The transmission parameters that can be negotiated vary depending on the capabilities of the Ethernet port.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>LOCKED</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="autoNegotiateOperState">
+                <description>Specifies the current operative state of the auto-negotiation on the Ethernet port.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Aggregator">
+            <description>Represents a LAG.</description>
+            <systemCreated/>
+            <attribute name="aggregatorId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="adminAggMember">
+                <description>Specifies the link aggregation member or the candidate group of the aggregator.
+If static mode, this attribute represent link aggregation member that references to ethernet port. Nil value in this mode means no port member in this aggregator.
+If dynamic mode, for candidate approach, this attribute represents the candidate group of the aggregator, it references to ethernet port. Nil value in this mode means no candidate port for this dynamic aggregator.</description>
+                <restricted/>
+                <dataType>
+                    <sequence>
+                        <moRef name="EthernetPort">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="dataRate">
+                <description>Specifies the current data rate of the link aggregation in M-bits per second. 
+The value is calculated as N times the data rate of a single link in the aggregation, where N is the number of active links.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+                <specification>IEEE 802.1AX-2008</specification>
+            </attribute>
+            <attribute name="operState">
+                <description>Represents the operative state of the aggregator. 
+It is ENABLED if at least one ethernet port in the group is operative.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="operAggMember">
+                <description>Specifies the ethernet port that are actually being a member of the aggregator.
+Empty value in this attribute means no actual port is added in this aggregator.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="EthernetPort">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Aggregator_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            
+        </class>
+        <class name="Router">
+            <description>Represents an IP routing domain instance.
+It provides data plane isolation of routed traffic and control plane isolation of routing entities from other routing instances.
+It allows for further fragmentation of the routing domain.
+One or more attributes setting can fail due to one of the following reasons: 
+	- Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+	- System-protected object cannot be modified or deleted: The MO is system-protected and cannot be modified or deleted.</description>
+            <attribute name="routerId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="VirtualRouterId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Router_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BfdSessionIPv4">
+            <description>Represents an IPv4 BFD Session Information.</description>
+            <systemCreated/>
+            <attribute name="bfdSessionIPv4Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="detectionTime">
+                <description>Specifies the detection time of the local endpoint.
+It is the period of time lapsed without receiving BFD packets, after which the local endpoint will declare the session down.
+RFC 5880 specifies that the Detection Time calculated in the local endpoint is equal to the value of the detection multiplier received from the remote endpoint, multiplied by the agreed transmit interval of the remote system.
+If the remote endpoint has a shorter detection time value, this will be the effective detection time for the session. 
+</description>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BfdSessionIPv4_detectionTime">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <specification>RFC 5880</specification>
+            </attribute>
+            <attribute name="intervalTxNegotiated">
+                <description>Specifies the negotiated interval at which the local node transmits BFD control packets.</description>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BfdSessionIPv4_intervalTxNegotiated">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="localDiscriminator">
+                <description>Specifies the local discriminator for this BFD session used for unique identification.</description>
+                <readOnly/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+            </attribute>
+            <attribute name="addrDst">
+                <description>Specifies the remote IP address of the BFD session.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="portSrc">
+                <description>Specifes the source UDP port for BFD session control packets.
+RFC5881 specifies the value to be within the range of 49152 through 65535.
+</description>
+                <readOnly/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+                <specification>RFC 5881</specification>
+            </attribute>
+            <attribute name="sessionState">
+                <description>The state of this BFD session.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="BfdSessionOperState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+                <specification>RFC 5880</specification>
+            </attribute>
+            <attribute name="remoteDiscriminator">
+                <description>Specifies the remote discriminator defined by the remote endpoint for this BFD session.</description>
+                <readOnly/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+            </attribute>
+            <attribute name="diagCode">
+                <description>Specifies the reason for the latest transition of sessionState from UP to another state.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="BfdSessionDiagnosticCode">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="addrSrc">
+                <description>Specifies the local IP address of the BFD session.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BfdProfile">
+            <description>Represents a BFD Session Profile.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - Cannot remove an object referenced by other object(s): The MO cannot be deleted since it is referenced by other MO(s), whose DN(s) are listed in reservedBy attribute.</description>
+            <attribute name="bfdProfileId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="BfdProfileId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="detectionMultiplier">
+                <description>Specifies the desired detection time multiplier.
+The negotiated control packet transmission interval, multiplied by the multiplier, defines the detection time for this session, as seen by the remote system. 
+</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BfdProfile_detectionMultiplier">
+                        <defaultValue>5</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <specification> RFC 5880</specification>
+            </attribute>
+            <attribute name="intervalTxMinDesired">
+                <description>Specifies the desired minimum transmission interval.
+It is the preferred minimum interval that the local system uses when transmitting BFD control packets.</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BfdProfile_intervalTxMinDesired">
+                        <defaultValue>100</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="intervalRxMinRequired">
+                <description>Specifies the minimum required reception interval.
+It is the minimum interval between received BFD control packets that the local system is capable of supporting.</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_BfdProfile_intervalRxMinRequired">
+                        <defaultValue>100</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>Contains a list of MO instances that reserve this MO instance.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AddressIPv4">
+            <description>Represents an assigned IPv4 address including information about the subnet it resides on.
+One or more attributes setting can fail due to one of the following reasons:
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - System-protected object cannot be modified or deleted: The MO is system-protected and cannot be modified or deleted.
+     - Invalid IPv4 address: Specified value for address attribute is not a valid IPv4 address.
+     - Specified address conflicts with another address on the same Router: The subnet specified in address attribute includes or is included in another subnet configured on a different interface of the same Router.</description>
+            <attribute name="address">
+                <description>Specifies the IPv4 decimal address + "/" + prefix length &lt;0-31&gt;.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="AddressIPv4andPrefixLengthStr">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="addressIPv4Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AddressId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_AddressIPv4_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="InterfaceIPv4">
+            <description>Represents an IPv4-addressed termination point. It is an interface on an IPv4 routing domain.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - System-protected object cannot be modified or deleted: The MO is system-protected and cannot be modified or deleted.
+     - Cannot define multiple loopback interfaces on same Router: A loopback interface already exists for this Router.
+     - One of the attributes encapsulation and loopback must be set, but not both at the same time: Both encapsulation and loopback attributes are set or both are empty.
+     - Invalid encapsulation specified: Specified encapsulation does not match any existing VLAN on the High Speed (HS) switch connected to the Router this interface belongs to.
+     - Specified encapsulation VLAN does not have a valid VLAN ID: The VLAN selected as encapsulation does not have a VLAN ID configured.
+     - Specified encapsulation VLAN is already used: Another Router's interface with the same encapsulation VLAN already exists.</description>
+            <attribute name="interfaceIPv4Id">
+                <description>Holds the name used when identifying the MO.
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="adminState">
+                <description>Specifies the administrative state of L3 interface.
+When LOCKED, the connection to the L3 stack is disabled and no L3 packets are received or transmitted or routed through.
+</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="AdmState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="bfdProfile">
+                <description>Specifies a reference to the BFD profile used for BFD sessions from this IP interface.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="BfdProfile">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </moRef>
+                </dataType>
+                <dependencies>When bfdStaticRoutes is ENABLED, bfdProfile must refer to a valid BfdProfile MO.</dependencies>
+            </attribute>
+            <attribute name="encapsulation">
+                <description>Specifies the reference to the underlying VLAN encapsulation.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="Vlan">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>Specifies the operational state of the IPv4 interface.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="aclIngress">
+                <description>Specifies a reference to an ACL MO applied in the ingress direction. 
+If this attribute is empty, no ACL MO filtering will take place in the ingress direction.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="AclIpv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </moRef>
+                </dataType>
+                <dependencies>If this attribute is set, loopback cannot be set.The referenced AclIpv4 MO must have at least one AclEntryIpv4 as a child.
+Only AclIpv4 MOs within the same router are allowed in an ACL association.</dependencies>
+            </attribute>
+            <attribute name="mtu">
+                <description>Specifies the MTU for IPv4.</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_InterfaceIPv4_mtu">
+                        <defaultValue>1500</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="bfdStaticRoutes">
+                <description>Specifies the intended state of BFD monitoring of static routing nexthops on this interface.
+To enable BFD monitoring, bfdStaticRoutes must be ENABLED, and bfdProfile must be defined.
+When BFD monitoring is enabled, all static routing nexthops on subnets of this IP interface will be monitored, unless explicitly disabled on peer/nexthop.
+</description>
+                <dataType>
+                    <enumRef name="BfdStaticRoutesInterfaceType">
+                        <defaultValue>DISABLED</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="loopback">
+                <description>Specifies if the interface is an IP Loopback Interface.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="EcimEmpty">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <dependencies>One of the attributes encapsulation and loopback must be set, but not both at the same time. Loopback cannot be set, if an ACL association exists, that is if aclEgress or aclIngress are set.The attribute egressQosMarking cannot be configured on an IP Loopback interface.</dependencies>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_InterfaceIPv4_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="RouteTableIPv4Static">
+            <description>Represents an IPv4 static route table information.</description>
+            <systemCreated/>
+            <attribute name="routeTableIPv4StaticId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Dst">
+            <description>Represents an IPv4 destination network Information.
+One or more attributes setting can fail due to one of the following reasons:
+	- Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+	- Specified dst is already used: Another Dst with the same dst subnet already exists.
+	- Invalid IPv4 subnet: Specified value for dst attribute is not a valid IPv4 subnet.</description>
+            <attribute name="dstId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="DstId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="dst">
+                <description>Specifies the IPv4 destination prefix for the route.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="Ipv4AddressAndPrefixLengthStr">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="NextHop">
+            <description>Represents an IPv4 route Information.
+It contains next hop information on how to reach a destination network.
+One or more attributes setting can fail due to one of the following reasons:
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - One of the attributes address and discard must be set, but not both at the same time: Both address and discard attributes are set or both are empty.
+     - Specified address conflicts with own address: Specified address coincides with an address configured on an InterfaceIPv4 on this Router.</description>
+            <attribute name="nextHopId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="adminDistance">
+                <description>Specifies the distance of next hop.
+It is used to select the best path when there are two or more routes to the same destination from two different routing protocols.</description>
+                <dataType>
+                    <derivedDataTypeRef name="DistanceValueType">
+                        <defaultValue>1</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="bfdMonitoring">
+                <description>Specifies whether the availability of this route depends on a BFD session that monitors the nexthop.
+By setting this attribute to true, the availability of this route depends on the session state if a BFD session monitors the nexthop.
+By setting this attribute to false the availability of this route does not depend on the session state, even when a BFD session monitors the nexthop.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="address">
+                <description>Specifies the IP address of the nexthop gateway of this route.
+One of the attributes address and discard must be set, but only one of them.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="Ipv4UnicastAddressStr">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <dependencies>The address must not coincide with an address configured on an InterfaceIPv4 on this router.</dependencies>
+            </attribute>
+            <attribute name="discard">
+                <description>Specifies that packets with a destination that match this route are discarded.
+One of the attributes address and discard must be set, but only one of them at the same time.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="EcimEmpty">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Vrrpv3Session">
+            <description>Represents a VR session on one router. 
+Normally these MOs exist in pairs, one for each InterfaceIpv4 MO with the same VLAN on each router in the node.
+An instance of the Vrrpv3Session MO can be created only if instances of the AddressIpV4 MO are created on both the referenced Vrrpv3Interface MO and the parent InterfaceIpv4 MO.
+Several Vrrpv3Session MOs that are children of the same InterfaceIpv4 are not allowed to reserve the same Vrrpv3Interface MO.
+One or more attributes setting can fail due to one of the following reasons:
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - Prioritized VRRP session already defined: Another VRRP session referencing the same VRRP interface is already configured as prioritized session.
+     - VRRP session in owner mode must be prioritized: Referenced VRRP address matches an address configured on an InterfaceIPv4 of this Router hence this VRRP session is in owner mode and prioritizedSession must be set to true.</description>
+            <attribute name="vrrpv3SessionId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="VrrpSessionId">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Specifies the administrative state of the VRRP session.
+Protocol operations are disabled when it is LOCKED.
+</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="prioritizedSession">
+                <description>Specifies the default role for this VRRP router.
+The value true defines the master role, and the value false defines the backup role.
+One of the two Vrrpv3Session MOs referring to the same Vrrpv3Interface MO must be configured as true, and the other must be configured as false.
+When the IP addresses in the two AddressIpv4 MOs specified below under a) and b) are equal, the session is in owner mode when it is in the master role. In this case, the attribute proiritizedSession must be configured as true.
+a) AddressIpv4 MO that is a child of the InterfaceIpv4 MO, of which this MO is a child.
+b) AddressIpv4 MO that is a child of the Vrrpv3Interface that this MO references.
+</description>
+                <mandatory/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="VrrpvPrioSession">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="vrrpState">
+                <description>Specifies the state of the virtual router.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="VrrpSessionState">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifes a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vrrpv3Session_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="vrrpv3InterfaceRef">
+                <description>Specifies the reference to the Vrrpv3Interface MO.
+Referenced MO contains common parameters for two Vrrpv3Sessions that are backup for each other.
+If prioritizedSession is set to false, the addresses of the two AddressIpv4 MOs specified below under a) and b) must not be equal:
+a) AddressIpv4 MO that is a child of the InterfaceIpv4 MO that this MO is a child of.
+b) AddressIpv4 MO that is a child of the Vrrpv3Interface that this MO is referencing.
+</description>
+                <mandatory/>
+                <restricted/>
+                <dataType>
+                    <moRef name="Vrrpv3Interface">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="priority">
+                <description>Specifies the master election priority.
+The value is 255 for a VRRP router in owner mode.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <uint8/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Vrrpv3Interface">
+            <description>Represents the unique VRRP router provided for a pair of VRRP sessions on two routers.
+It contains the attributes common for both VRRP sessions.
+One or more attributes setting can fail due to one of the following reasons:
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.
+     - Cannot remove an object referenced by other object(s): The MO cannot be deleted since it is referenced by other MO(s), whose DN(s) are listed in reservedBy attribute.
+     - Specified VR ID is already used: Another VRRP Interface with the same VR ID already exists.</description>
+            <attribute name="vrrpv3InterfaceId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="vrIdentity">
+                <description>Specifies the VRRP router identifier.
+The vrIdentity must be unique among all Vrrpv3Interface MO instances. </description>
+                <mandatory/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vrrpv3Interface_vrIdentity">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="advertiseInterval">
+                <description>Specifies the time between sending the VRRP advertisement messages.
+Real VRRP convergence time = advertiseInterval * (4-(priority/256)). Priority is defined in the Vrrp3Session MO that becomes the new master.</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vrrpv3Interface_advertiseInterval">
+                        <defaultValue>200</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <specification>RFC 5798</specification>
+            </attribute>
+            <attribute name="preemptMode">
+                <description>Specifies the preemptive mode.
+When true, a higher-priority VRRP router can preempt a lower-priority master VRRP router.
+By default, preemption is enabled with no hold time. Preemption is enabled for a VRRP router in owner mode.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="preemptHoldTime">
+                <description>Specifies the master preemption hold time.
+It is the time for which a higher-priority VRRP backup router must wait before preempting a lower-priority VRRP master.
+Configure the preemption hold time when the higher-priority server must wait before trying to preempt the current master. The preemption hold time is zero for a VRRP router in owner mode.</description>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vrrpv3Interface_preemptHoldTime">
+                        <defaultValue>0</defaultValue>
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>Contains a list of MO instances that reserve this MO instance.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifes a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_Vrrpv3Interface_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AclIpv4">
+            <description>Represents an ACL. 
+It contains an ordered list of ACL entries. See the attribute priority for details on ordering.
+One or more attributes setting can fail due to one of the following reasons: 
+	- Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.</description>
+            <attribute name="aclIpv4Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>Contains a list of MO instances that reserve this MO instance. </description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Specifies a label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_AclIpv4_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AclEntryIpv4">
+            <description>Represents an entry in an ACL. 
+It contains a set of filters for the ACL entry as well as an action and a priority. All filters refer to fields in the IP protocol header.
+One or more attributes setting can fail due to one of the following reasons: 
+     - Infrastructure Communication Failure: Communication with infrastructure HW failed and requested configuration could not be applied.</description>
+            <attribute name="aclEntryIpv4Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="action">
+                <description>Specifies the action of the ACL entry. 
+When a packet matches the filters in this entry, the action is executed.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="AclAction">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="addrDst">
+                <description>Specifies the destination IP Address filter. 
+The value is a list of IPv4 subnets: Value/prefix-length. 
+The ACL entry matches if any address in the list matches.
+If the value list is empty, any IP address matches this entry. </description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="Ipv4AddressAndPrefixLengthStr">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="addrSrc">
+                <description>Specifies the source IP Address filter.
+The value is a list of IPv4 subnets: Value/prefix-length. 
+The ACL entry matches if any address in the list matches.
+If the value list is empty, any IP address matches this entry. </description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="Ipv4AddressAndPrefixLengthStr">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="dscp">
+                <description>Specifies the DSCP field filter.
+The value is a list of DSCP values: Ranges [dd..dd] or single-values [dd], where dd represents an integer in {0..63}.
+The ACL entry matches if any DSCP value in the list matches.
+If the value list is empty, any DSCP value will match this entry.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="IpDscpStrST">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="fragmentType">
+                <description>Specifies the fragment type filter.
+The value is a fragment type.
+If the value is empty, state-less handling of fragments is performed.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="FragmentType">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="icmpType">
+                <description>Specifies the ICMP type filter.
+The ACL entry matches if any element in the list matches. 
+If the value list is empty, any ICMP types match this entry.
+It can be non-empty only if ipProtocol contains one single-value element, equal to ICMP (1).
+</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="IcmpType">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="ipProtocol">
+                <description>Specifies the protocol number filter.
+The value is a list of ranges [ddd..ddd] or single-values [ddd], where ddd represents an integer in the range {0..255}.
+The ACL entry matches if any protocol number in the list matches.
+If the value list is empty, any protocol number matches this entry.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="IpProtocolNumberStrST">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="portDst">
+                <description>Specifies the transport layer destination port filter (UDP, TCP or SCTP only).
+The value is a list of port numbers: Ranges [ddddd..ddddd] or single values [ddddd], where ddddd represents an integer in the range {0..65535}.
+This attribute can be non-empty only if the protocol is non-empty and if it contains elements that are single values equal to UDP (17), TCP (6), or SCTP (132).
+The ACL entry matches if any port number in the list matches.
+If the value list is empty, any port number matches this entry.
+</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="L4PortStrST">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="portSrc">
+                <description>Specifies the transport layer source port filter (UDP, TCP or SCTP only).
+The value is a list of port numbers: Ranges [ddddd..ddddd] or single values [ddddd], where ddddd represents an integer in the range {0..65535}. 
+This attribute can be non-empty only if the protocol is non-empty and if it contains elements that are single values equal to UDP (17), TCP (6), or SCTP (132)
+The ACL entry matches if any port number in the list matches.
+If the value list is empty, any port number matches this entry.
+</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="L4PortStrST">
+                            <mimName>AxeInfrastructureTransportM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <maxLength>4</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="priority">
+                <description>Specifies the priority of this ACL entry relative to the other entries in the list.
+The attribute values of the AclEntryIpv4 instances must be unique within the same AclIpv4 MO.
+</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="Priority">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>A label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AxeInfrastructureTransportM_AclEntryIpv4_userLabel">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="TransportM_to_Bridge">
+            <containment>
+                <parent>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Bridge">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Bridge_to_BridgePort">
+            <containment>
+                <parent>
+                    <hasClass name="Bridge">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BridgePort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Bridge_to_Vlan">
+            <containment>
+                <parent>
+                    <hasClass name="Bridge">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Vlan">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Vlan_taggedBridgePorts_to_BridgePort">
+            <uniDirectionalAssociation>
+                <hasClass name="Vlan">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="taggedBridgePorts">
+                    <hasClass name="BridgePort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="Vlan_untaggedBridgePorts_to_BridgePort">
+            <uniDirectionalAssociation>
+                <hasClass name="Vlan">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="untaggedBridgePorts">
+                    <hasClass name="BridgePort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="TransportM_to_EthernetPort">
+            <containment>
+                <parent>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EthernetPort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TransportM_to_Aggregator">
+            <containment>
+                <parent>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Aggregator">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Aggregator_adminAggMember_to_EthernetPort">
+            <uniDirectionalAssociation>
+                <hasClass name="Aggregator">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="adminAggMember">
+                    <hasClass name="EthernetPort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="Aggregator_operAggMember_to_EthernetPort">
+            <uniDirectionalAssociation>
+                <hasClass name="Aggregator">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="operAggMember">
+                    <hasClass name="EthernetPort">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="TransportM_to_Router">
+            <containment>
+                <parent>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Router_to_BfdProfile">
+            <containment>
+                <parent>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BfdProfile">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="InterfaceIPv4_to_AddressIPv4">
+            <containment>
+                <parent>
+                    <hasClass name="InterfaceIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AddressIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Router_to_InterfaceIPv4">
+            <containment>
+                <parent>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="InterfaceIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="RouteTableIPv4Static_to_Dst">
+            <containment>
+                <parent>
+                    <hasClass name="RouteTableIPv4Static">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Dst">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Dst_to_NextHop">
+            <containment>
+                <parent>
+                    <hasClass name="Dst">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="NextHop">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Router_to_RouteTableIPv4Static">
+            <containment>
+                <parent>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="RouteTableIPv4Static">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="InterfaceIPv4_to_Vrrpv3Session">
+            <containment>
+                <parent>
+                    <hasClass name="InterfaceIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Vrrpv3Session">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Router_to_AclIpv4">
+            <containment>
+                <parent>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AclIpv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="AclIpv4_to_AclEntryIpv4">
+            <containment>
+                <parent>
+                    <hasClass name="AclIpv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AclEntryIpv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="InterfaceIPv4_aclIngress_to_AclIpv4">
+            <uniDirectionalAssociation>
+                <hasClass name="InterfaceIPv4">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="aclIngress">
+                    <hasClass name="AclIpv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="Router_to_BfdSessionIPv4">
+            <containment>
+                <parent>
+                    <hasClass name="Router">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BfdSessionIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="InterfaceIPv4_bfdProfile_to_BfdProfile">
+            <uniDirectionalAssociation>
+                <hasClass name="InterfaceIPv4">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="bfdProfile">
+                    <hasClass name="BfdProfile">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="InterfaceIPv4_encapsulation_to_Vlan">
+            <uniDirectionalAssociation>
+                <hasClass name="InterfaceIPv4">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="encapsulation">
+                    <hasClass name="Vlan">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="Vrrpv3Session_vrrpv3InterfaceRef_to_Vrrpv3Interface">
+            <uniDirectionalAssociation>
+                <hasClass name="Vrrpv3Session">
+                    <mimName>AxeInfrastructureTransportM</mimName>
+                </hasClass>
+                <associationEnd name="vrrpv3InterfaceRef">
+                    <hasClass name="Vrrpv3Interface">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="TransportM_to_Vrrpv3Interface">
+            <containment>
+                <parent>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Vrrpv3Interface">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Vrrpv3Interface_to_AddressIPv4">
+            <containment>
+                <parent>
+                    <hasClass name="Vrrpv3Interface">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AddressIPv4">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SystemComponentHandling_to_TransportM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemComponentHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TransportM">
+                        <mimName>AxeInfrastructureTransportM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

@@ -1,0 +1,6 @@
+parameters:
+  #HOST: "tp069ap1.axe.k2.ericsson.se"
+  #PORT: "830"
+  #USERNAME: "ossuser"
+  APZ_MAG: "15.0.0.0"
+  APT_MAG: "1.0.0.0"

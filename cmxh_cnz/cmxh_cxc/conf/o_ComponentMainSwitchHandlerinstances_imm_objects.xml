@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 
+  Copyright (c) 2012 Ericsson AB.
+  All rights reserved
+
+  
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+	<object class="ComponentMainSwitchHandlerVlanParameter">
+        <dn>ComponentMainSwitchHandlerVlanParameterId=1</dn>
+    </object>
+    <object class="ComponentMainSwitchHandlerVlanParameter">
+        <dn>ComponentMainSwitchHandlerVlanParameterId=2</dn>
+        <attr>
+			<name>VlanName</name>
+			<value>APG-DRBD-VLAN</value>
+		</attr>
+		<attr>
+			<name>VlanId</name>
+			<value>99999</value>
+		</attr>
+    </object>
+	<object class="ComponentMainSwitchHandlerSnmpPolling">
+        <dn>ComponentMainSwitchHandlerSnmpPollingId=1</dn>
+    </object>
+    
+</imm:IMM-contents>

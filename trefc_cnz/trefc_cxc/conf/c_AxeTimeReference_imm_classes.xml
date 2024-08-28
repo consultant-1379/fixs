@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 10:55:08 PM using:
+	* com.ericsson.ecim.coremw.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.coremw.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.coremw.imm 3.13.0.202006261811
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <class name="AxeTimeReferenceTimeReferenceM">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>AxeTimeReferencetimeReferenceMId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>operationalState</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+        <attr>
+            <name>administrativeState</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+        <attr>
+            <name>changeAdmStateResult</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0</default-value>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceNetworkTimeServer">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>networkTimeServerId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>ipAddress</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0.0.0.0</default-value>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceScxTimeReference">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>scxTimeReferenceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>timeServiceStatus</name>
+            <type>SA_INT32_T</type>
+            <category>SA_RUNTIME</category>
+        </attr>
+        <attr>
+            <name>timeReferenceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_RUNTIME</category>
+        </attr>
+        <attr>
+            <name>networkConfiguration</name>
+            <type>SA_NAME_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceScxTimeService">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>scxTimeServiceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>referenceType</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+        <attr>
+            <name>serviceType</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceSwitchTimeReference">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>switchTimeReferenceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>timeServiceStatus</name>
+            <type>SA_INT32_T</type>
+            <category>SA_RUNTIME</category>
+        </attr>
+        <attr>
+            <name>timeReferenceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_RUNTIME</category>
+        </attr>
+        <attr>
+            <name>networkConfiguration</name>
+            <type>SA_NAME_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceSwitchTimeService">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>switchTimeServiceId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>referenceType</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+        <attr>
+            <name>serviceType</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceSCXNetworkConfigurationStruct">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>id</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>ipAddress</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0.0.0.0</default-value>
+        </attr>
+        <attr>
+            <name>netmask</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>255.255.255.0</default-value>
+        </attr>
+        <attr>
+            <name>gateway</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0.0.0.0</default-value>
+        </attr>
+    </class>
+    <class name="AxeTimeReferenceSwitchNetworkConfigStruct">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>id</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+        <attr>
+            <name>ipAddress</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0.0.0.0</default-value>
+        </attr>
+        <attr>
+            <name>netmask</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>255.255.255.0</default-value>
+        </attr>
+        <attr>
+            <name>gateway</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <default-value>0.0.0.0</default-value>
+        </attr>
+    </class>
+</imm:IMM-contents>

@@ -1,0 +1,107 @@
+##
+# ------------------------------------------------------------------------
+#     Copyright (C) 2013 Ericsson AB. All rights reserved.
+# ------------------------------------------------------------------------
+##
+# models.info TEMPLATE
+##
+# Description:
+#       Configuration file used to perform IMM model changes during software upgrade for CS block.
+##
+##
+# Changelog:
+# - nov 25-27 2013 - Fabrizio Paglia (XFABPAG)      First version
+# - dec 21-01 2014 - Andrea Formica  (EANFORM)      From APG43L1.12 to LSV24 
+##
+# Report here FOR EACH package version, all introduced model changes, in the following format,
+# starting from the first version from which you want to support upgrade, with the most recent on top
+#
+#APG 4.3 LSV2217
+VERSION: CXC1371412_9-R1H
+
+#APG 4.1 LSV03
+VERSION: CXC1371412_9-R1G
+
+#APG 4.1 LSV03
+VERSION: CXC1371412_9-R1F
+log "Model files regenerated using latest ECIM 1.17" 
+
+#APG 3.8 LSV03
+VERSION: CXC1371412_9-R1E
+log "Model files updated by generating with new version of modelling tool"
+
+#APG43L 3.8 LSV02
+VERSION: CXC1371412_9-R1D
+
+#APG43L 3.7 LSV05
+VERSION: CXC1371412_9-R1C
+
+#APG$#L 3.6.1
+VERSION: CXC1371412_9-R1B01
+
+# Adaptations to SwM2.0
+VERSION: CXC1371412_9-R1A06
+VERSION: CXC1371412_9-R1A05
+VERSION: CXC1371412_9-R1A04
+VERSION: CXC1371412_9-R1A03
+VERSION: CXC1371412_9-R1A02
+VERSION: CXC1371412_9-R1A01
+
+#AXE17+ FP RevB
+VERSION: CXC1371412_6-R1A01
+
+#AXE17+ LSV05
+VERSION: CXC1371436_6-R1A04
+
+#AXE17+ LSV04
+VERSION: CXC1371436_6-R1A03
+
+#AXE17+ LSV03
+VERSION: CXC1371436_6-R1A02
+
+#AXE17+
+VERSION: CXC1371436_6-R1A01
+
+#BSC Delivery
+VERSION: CXC1371412_5-R1D01P
+VERSION: CXC1371412_5-R1C01P
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1A06P2
+
+VERSION: CXC1371412_5-R1A06P
+cmw-immclass-modify $BUNDLE_NAME AxeTimeReferenceTimeReferenceM
+cmw-immclass-add $BUNDLE_NAME AxeTimeReferenceSwitchTimeReference AxeTimeReferenceSwitchTimeService AxeTimeReferenceSwitchNetworkConfigStruct
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1D
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1C
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1B
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1A05
+
+#AXE17 - Rebased
+VERSION: CXC1371412_5-R1A04
+
+#AXE17 - 
+VERSION: CXC1371412_5-R1A03
+
+#AXE17 - Black delivery 
+VERSION: CXC1371412_5-R1A01
+
+# 3.1.0
+VERSION: CXC1371412-R2E
+
+# 3.0.5
+VERSION: CXC1371412-R2D
+
+# BASELINE
+VERSION: CXC1371412-R2C
+
+# PRB 
+VERSION: CXC1371442-R1A06
